@@ -36,5 +36,208 @@
   <ul>
     <li><a href="http://www.tinycorelinux.net/9.x/armv6/releases/RPi/README">piCore README, with instructions for loading/prep</a>
   </ul>
+  <h3>13 February 2019</h3>
+  <p>Copy/pasted from my typed notes sheet.  Forgive the mess.</p>
+  <p>Wiped and Reloaded SD card AGAIN.  Booted.</p>
+  <p>Command:  sudo fdisk -u /dev/mmcblk0</p>
+  <p>Reply:<br />
+    The number of cylinders for this disk is set to 30436.  There is nothing wrong with that, but this is larger than 1024, and could in certain setups cause problems with:<br>
+    1) software that runs at boot time (e.g., old versions of LILO) <br>
+    2) booting and partitioning software from other OSs (e.g., DOD FDISK, OS/2 FDISK) </p><br />
+  <p>In-program Command: p<br />
+    Reply:<br />
+
+Disk /dev/mmcblk0: 30 GB, 31914983424 bytes, 62333952 sectors <br />
+30436 cylinders, 64 heads, 32 sectors/track <br />
+Units: sectors of 1 * 512 = 512 bytes <br /><br />
+
+Device:     Boot  StartCHS  EndCHS    StartLBA    EndLBA    Sectors   Size    Id    Type <br />
+/dev/mmcblk0p1    4,0,1     37,63,32  8192        77823     69632     34.0M   c     Win95 FAT32 (LBA) <br />
+/dev/mmcblk0p2    38,0,1    48,63,32  77824       100351    22528     11.0M   83    Linux <br /><br />
+
+
+In-program Command: d <br />
+Partition number (1-4): 2 <br /><br />
+
+In-program command: n <br />
+Command action: p <br />
+Partition number (1-4): 2 <br />
+First sector (32-62333951, default 32): 32 <br />
+Last sector or +size or +sizeM or +sizeK (32-8191, default 8191): 8191 <br /><br />
+
+In-program command: p <br />
+Reply: <br />
+
+Disk /dev/mmcblk0: 30 GB, 31914983424 bytes, 62333952 sectors <br />
+30436 cylinders, 64 heads, 32 sectors/track <br />
+Units: sectors of 1 * 512 = 512 bytes <br /><br />
+
+Device:     Boot  StartCHS  EndCHS    StartLBA    EndLBA    Sectors   Size    Id    Type <br />
+/dev/mmcblk0p1    4,0,1     37,63,32  8192        77823     69632     34.0M   c     Win95 FAT32 (LBA) <br />
+/dev/mmcblk0p2    38,0,1    48,63,32  32           8191    22528     11.0M   83    Linux <br /><br />
+
+Partition table entries are not in disk order <br /><br />
+
+
+
+That can't be right..... <br />
+
+Starting again (didn't save changes) <br />
+
+Rewriting sector... <br />
+placed First sector as 77824 instead... <br />
+
+Last sector or +size or +sizeM or +sizeK (77824-62333951, default 62333951): 62333951 <br /><br />
+
+I'm going to max it out. <br /><br />
+
+In-program command: p <br />
+Reply: <br />
+
+Disk /dev/mmcblk0: 30 GB, 31914983424 bytes, 62333952 sectors <br />
+30436 cylinders, 64 heads, 32 sectors/track <br />
+Units: sectors of 1 * 512 = 512 bytes <br /><br />
+
+Device:     Boot  StartCHS  EndCHS    StartLBA    EndLBA    Sectors   Size    Id    Type <br />
+/dev/mmcblk0p1    4,0,1     37,63,32  8192        77823     69632     34.0M   c     Win95 FAT32 (LBA) <br />
+/dev/mmcblk0p2    38,0,1    48,63,32  77824       62333951  22528     29.6G   83    Linux <br /><br />
+
+
+
+That might be a bit much for a minimalist OS, but we'll see. <br />
+I'm gonna go ahead and write this... <br />
+
+command: w <br />
+
+Reply: <br />
+The partition table has been altered. <br />
+Calling ioctl() to re-read partition table <br />
+fdisk: WARNING: rereading partition table failed, kernel still uses old table: Device or resource busy <br /><br />
+
+
+
+I'm gonna look up what ioctl() is. <br />
+
+Quote from a Wikipedia page: https://en.wikipedia.org/wiki/Ioctl <br />
+
+In computing, ioctl (an abbreviation of input/output control) is a system call for device-specific <br />
+input/output operations and other operations which cannot be expressed by regular system calls. It <br />
+takes a parameter specifying a request code; the effect of a call depends completely on the request <br />
+code. Request codes are often device-specific. For instance, a CD-ROM device driver which can instruct <br />
+a physical device to eject a disc would provide an ioctl request code to do that. Device-independent <br />
+request codes are sometimes used to give userspace access to kernel functions which are only used by <br />
+core system software or still under development. <br /><br />
+
+The ioctl system call first appeared in Version 7 of Unix under that name. It is supported by most <br />
+Unix and Unix-like systems, including Linux and Mac OS X, though the available request codes differ <br />
+from system to system. Microsoft Windows provides a similar function, named "DeviceIoControl", in its <br />
+Win32 API. <br /><br />
+
+So apparently, Input/Output control is the computer's way of telling connected devices what to do. <br />
+I'm guessing this meant that whatever dwelt inside the OS image tried to read the partition table but <br />
+couldn't, and told me that the kernel still uses the old table.  This is likely why step 3 told me that <br />
+Kernel needed to be aware of changes.  But how do I do this, if I even need to at all?? <br /><br />
+
+I'm going to go ahead and reboot this command-line computer and see if anything changes. <br />
+command: sudo reboot <br /><br />
+
+Step 4 of the README says to expand the file system to the new partition boundaries with typing a <br />
+certain command as root: <br /><br />
+
+REFERENCE: How to become root in Linux <br />
+<a href:"https://www.computerhope.com/issues/ch001639.htm">https://www.computerhope.com/issues/ch001639.htm</a><br />
+
+command: su <br />
+Reply:  Password: <br /><br />
+
+Um, I don't know??  The README says under Login, passwords: "In case of piCore-x.y password for tc user is <br />
+
+piCore <br />
+
+It is not possible to log in as root." <br /><br />
+
+Well then... <br />
+(presses Enter key) <br /><br />
+
+Reply: su: incorrect password <br /><br />
+
+Guess I'll have to do step 4 with the sudo command: <br /><br />
+
+Command: sudo resize2fs /dev/mmcblk0p2 <br />
+Reply: <br />
+resize2fs 1.43.4 (31-Jan-2017) <br />
+Filesystem at /dev/mmcblk0p2 is mounted on /mnt/mmcblk0p2; on-line resizing required <br />
+old_desc_blocks = 1, new_desc_blocks = 238 <br />
+The filesystem on /dev/mmcblk0p2 is now 31128064 (1k) blocks long. <br /><br />
+
+
+It appears to have worked.  Now, according to the README, I am ready to use the bigger partition. <br />
+
+Partitioning complete--I'm going to go ahead and reboot and see if this does anything different. <br /><br />
+
+Rebooted to see the command line once more. <br />
+
+The README states under Boot codes that some boot codes are specified in the /mnt/mmcblk0p1/cmdline.txt file. <br />
+Maybe one of those will lead me to a GUI interface?? <br />
+<a href:"http://tinycorelinux.net/faq.html#req">http://tinycorelinux.net/faq.html#req</a><br />
+This link provides what appears to be settings for adjusting the boot protocols when at the boot prompt before <br />
+the system boots.  I will guess that, given that I'm running this on an RPi, I will have to press their <br />
+relevant function keys [F2], [F3], [F4] either on the rainbow screen or on the raspberries screen before <br />
+they turn into command-line ASCII text. <br /><br />
+
+Command: sudo reboot <br />
+Presses F2 and F3 and F4 on the raspberries screen <br />
+(Does nothing.) <br /><br />
+
+Am I supposed to hold them down?? <br />
+Command: sudo reboot <br />
+Holds F2 and F3 and F4 on the raspberries screen <br />
+(nothing.) <br /><br />
+
+Research break!! <br />
+<a href:"https://www.zdnet.com/article/hands-on-with-picore-7-0-tiny-core-linux-for-the-raspberry-pi/">https://www.zdnet.com/article/hands-on-with-picore-7-0-tiny-core-linux-for-the-raspberry-pi/</a><br />
+
+According to this article, I have to add the GUI package myself (shoot) and that the initial image <br />
+only supports a wired network connection--if I want to use wireless networking, I'll have to add the <br />
+necessary extensions for a wireless adapter.<br /><br />
+
+Regardless, to install the GUI package I have to put in this command: <br />
+
+tce-load -iw TC <br />
+
+This instruction uses a tce-load utility to install a TC.tcz extension.  I'll give it a try. <br /><br />
+
+Reply (instantly, wow): <br />
+Downloading: TC.tcz <br />
+wget: bad address 'repo.tinycorelinux.net' <br />
+md5sum: TC.tcz.md5.txt: No such file or directory <br />
+Error on TC.tcz <br /><br />
+
+I think this means I need to wire to the wall in order to get the GUI. </p>
+  
+<h3>14 February 2019 - happy Antivalentine's Day</h3>
+
+<p>Arrived just before noon - constructions set up, RJ-45 into the wall.  I will attempt to <br />
+procure the GUI package now. <br /><br />
+
+Command: tce-load -iw TC <br />
+Reply: <br />
+(a whole list of packages with OK appearing next to them...) <br />
+(Downloading each; connecting to repo.tinycorelinux.net to procure each.) <br /><br />
+
+(This line appeared among some of the downloads:) <br />
+/usr/bin/tce-load: line 273: desktop.sh: not found <br /><br />
+
+Regardless: according to the article I found last time (zdnet): <br />
+"Note that the extension name is upper-case, and this command is case-sensitive. The -iw options <br />
+tell tce-load to download and install this extension, and to put it in the OnBoot list so that <br />
+it will automatically be available in the future. After this command finishes, you can start the <br />
+GUI with startx, or you can just reboot the Pi and it will come up with the GUI running." <br /><br />
+
+Command: startx <br />
+Reply: first a black screen, then the GUI appears!  Hallelujah! <br />
+What's better: I should no longer have to deal with command lines on this OS unless I use the <br />
+terminal. <br /><br />
+
 </body>
 </html>
