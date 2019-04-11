@@ -300,9 +300,128 @@ Debian-based Linux distro, Raspbian, for another project that the Professor just
 
 <h3>18 February 2019</h3>  
 
-<p>Loaded Raspbian OS (Full) on a second SD card.</p>
+<p>Loaded Raspbian OS (Full) on a second SD card.</p><br />
+(Aside from the regular version of Raspbian, NOOBS Lite has Raspbian Full and Raspbian Mini, <br />
+  along with a whole bunch of other images to install.)</p><br /><br />
+
+NOOBS for Raspberry Pi - <a href="https://www.raspberrypi.org/downloads/noobs/">https://www.raspberrypi.org/downloads/noobs/</a>
+
   
-<h3>21 February 2018</h3>
+<h3>21 February 2018 (Tiny Core)</h3>
   
+<p>I'm going to see if I can procure the packages that went missing when I downloaded the TC <br />
+package that contained the UI, by installing the package again.  If it screws up the system, oh well. <br /><br /> It shouldn't duplicate what I already have.
+
+Command in Terminal:<br />
+tce-load -iw TC<br />
+Response:<br />
+TC is already installed!<br /><br />
+
+Okay then.<br />
+Shutting off (Exit still doesn't do anything!!)</p>
+  
+<h3>21 February 2018 (Raspbian)</h3>
+
+<p>Doing a lot of the same stuff I did in CMST 250 last semester.<br /><br />
+
+Used GUI to style up Raspbian to my liking--changed the background, changed the appearance of <br />
+menu bar, changed system text font, changed icon set. <br /><br />
+
+Used command line to install xscreensaver <br />
+Used command line to install firefox-esp  --then purged (remove), it was horribly out of date. <br />
+Used sudo apt autoremove to remove unneeded files. <br />
+Used command line to install apache2  [Apache HTTP Web Server] and its suggested packages <br />
+---then purged (for practice.)</p>
+  
+<h3>28 February 2018 (Raspbian)</h3>
+
+<p>ToDo:</p><br />
+<ul>
+ <li> Set a static IP address on my Pi.
+ <li> Install the Apache web server package.
+</ul><br />
+  
+Used command line to get Apache HTTP Web Server (again)<br />
+sudo apt-get install apache2 <br /><br />
+
+Note: The device needs an internet connection in order to program a static IP address. <br />
+As I don't intend to make my Pi (or at the very least, my microSD card) into a full-time web <br />
+server outside of this class, I won't do this. <br /><br />
+
+<a href="https://www.raspberrypi.org/documentation/configuration/security.md">https://www.raspberrypi.org/documentation/configuration/security.md</a><br />
+I read this documentation page on the Raspberry Pi website about securing the Pi, and knowing <br />
+that I'll be using apache2 for its web server properties, this will definitely come in handy.</p><br /><br />
+  
+Added user wre and assigned a password to it (when prompted). <br />
+sudo adduser wre <br /><br />
+
+Response: <br />
+Adding user `wre' ... <br />
+Adding new group `wre' (1001) ... <br />
+Adding new user `wre' (1001) with group `wre' ... <br />
+Creating home directory `home/wre' ... <br />
+Copying files from `/etc/skel' ... <br />
+Enter new UNIX password: <br /><br />
+
+You can't have uppercase letters in your username. <br />
+The password will be hidden when you type--be careful. <br /><br />
+
+Made sudo require a password--better safe than sorry. <br />
+Gave my new account wre sudo permissions. <br />
+sudo adduser wre sudo <br /><br />
+
+Attempted--and failed--to install Uncomplicated Fire Wall (ufw) and configure Fail2Ban <br />
+(fail2ban) via command line.  The former returned a failure to fetch packages from the <br />
+repositories and the latter was not configured--I attempted to manually copy the jail configuration <br /> 
+file to jail.local.  Uninstalled.  I'll try again next time. </p><br /><br />
+
+<h3>21 Mar 2019 (Raspbian)</h3>
+
+<p>Back from a sick day and spring break and I'm ready to continue my work. <br /><br />
+
+[Some command line practice...] <br />
+Installed GNU Image Manipulation Program (gimp-2.8.18-1+deb9u1) <br />
+Command in terminal: sudo apt-get install gimp  <br />
+Hmm...didn't appear as opened/received in the Add/Remove Software--installation failure???. <br />
+Deleting, and installing through the GUI-based Add/Remove Software. <br /><br />
+
+There it is!!! <br /><br />
+
+[Now to try to do what I intended to do last time but couldn't...] <br />
+Reference page: <a href="https://www.raspberrypi.org/documentation/configuration/security.md">https://www.raspberrypi.org/documentation/configuration/security.md</a><br /><br />
+
+Trying again with fail2ban... <br />
+sudo apt-get install fail2ban <br /><br />
+
+Got it, and followed instructions on the webpage exactly. Apparently I was going about enabling <br />
+the firewall all wrong the last time.  You have to use command line to copy (sudo cp) the <br />
+jail.conf file into jail.local<br /><br />
+
+Trying again with Uncomplicated Fire Wall... <br />
+sudo apt-get install ufw <br />
+Seemed to install perfectly fine this time. <br /><br />
+
+Enabling the firewall to ensure it starts on boot... <br />
+sudo ufw enable <br />
+Response: Firewall is active and enabled on system startup <br /><br />
+
+[Professor reveals course plans for the rest of the semester] <br />
+[We built a network using the wall sockets in the laboratory, and were able to have our Pi's <br />
+ping each other--view our apache2 web pages, which at that point was the default index.html <br />
+file] <br /><br />
+
+I'm having issues modifying my index.html page in /var/www/html/index.html  <br />
+Apparently I'm running into permissions issues: <br />
+Error message when trying to save a modified page: Can't open file to write <br /><br />
+
+I'll try from the pi account. <br />
+Same error!!! <br /><br />
+
+Looks like I'll try to use this app as a superuser. <br />
+Command in terminal: sudo leafpad %f <br />
+Now I'm able to edit and save the index page.  Odd. <br />
+Trying again, accessing from GUI, without the super-user privileges. <br />
+Once again, I'm unable to edit.  The more you know... <br /><br />
+
 </body>
 </html>
