@@ -9,29 +9,32 @@
   <h1>piJournal</h1>
   <p>This webpage is a journal for chronicling my exploration of the Raspberry Pi.</p>
   <h3>31 January 2019</h3>
-  <p>Assignment revealed.  We were to load an operating system on a Raspberry Pi computer and begin to explore its capabilities. <br>
-  As I have already had experence from last semester, I wanted to seek out a different OS from the two I've already used: Raspbian,<br>
-  a Debian-based OS designed specifically for the Raspberry Pi, and ubuntuMATE, version 16.04 (Xenial Xerus), optimized and ported <br>
-  for use on a Raspberry Pi computer.  After a quick search on Distro Watch, I selected Tiny Core Linux to be my next OS to explore.<br>
-  According to its entry on Distro Watch, it is 12 megabytes in size and based on Damn Small Linux (DSL), another ultra-lightweight <br>
-  Linux OS that was developed over a decade ago and has long since been discontinued. <br>
+  <p>Assignment revealed.  We were to load an operating system on a Raspberry Pi computer and <br />
+  begin to explore its capabilities. As I have already had experence from last semester, I wanted <br />
+  to seek out a different OS from the two I've already used: Raspbian, a Debian-based OS designed <br />
+  specifically for the Raspberry Pi, and ubuntuMATE, version 16.04 (Xenial Xerus), optimized and <br />
+  ported for use on a Raspberry Pi computer.  After a quick search on Distro Watch, I selected <br />
+  Tiny Core Linux to be my next OS to explore. According to its entry on Distro Watch, it is <br />
+  12 megabytes in size and based on Damn Small Linux (DSL), another ultra-lightweight Linux <br />
+  operating system that was developed over a decade ago and has long since been discontinued. <br />
   We were recommended to procure our own microSD cards.</p>
   <h3>4 February</h3>
-  <p>I loaded Tiny Core (specifically piCore) onto my microSD and began to tinker with it.  Booting takes the user to a command-line <br>
-  interface awaiting typed commands.  The README from the Tiny Core website provides instructions for what to do, but to me it felt <br>
-  as if I was learning command-line all over again.  This fact alone tells me that Tiny Core would not be an ideal first choice for <br>
-  someone who has never used a Linux operating system before, let alone command-line.  I will attempt to rewrite partitions on the <br>
-  card again next class in hopes of creating a fully functional computer.</p>
+  <p>I loaded Tiny Core (specifically piCore) onto my microSD and began to tinker with it.  Booting <br />
+  takes the user to a command-line interface awaiting typed commands.  The README from the Tiny <br /> 
+  Core website provides instructions for what to do, but to me it felt as if I was learning command-line <br />
+  all over again.  This fact alone tells me that Tiny Core would not be an ideal first choice for <br />
+  someone who has never used a Linux operating system before, let alone command-line.  I will attempt <br />
+  to rewrite partitions on the card again next class in hopes of creating a fully functional computer.</p>
   <p><strong>References:</strong></p>
   <ul>
   <li><a href="http://www.tinycorelinux.net/9.x/armv6/releases/RPi/">Stable release downloads for piCore</a>
   <li><a href="http://www.tinycorelinux.net/9.x/armv6/releases/RPi/README">piCore README, with instructions for loading/prep</a>
   </ul>
   <h3>7 February 2019</h3>
-  <p>I attempted again to properly partition the microSD.  This time, however, the partitions appeared to be out of order this time. <br>
-    I did figure out how to partition (it's easier than it looks), and even took comprehensive notes on my laptop.  Unfortunately, said <br>
-    notes file went missing--probably because I subconsciously forgot to save.  In the meantime, the partitions were still out of order <br>
-    and I couldn't complete step 4 of partitioning according to the README.  I will wipe and reload the MicroSD and try again later. </p>
+  <p>I attempted again to properly partition the microSD.  This time, however, the partitions appeared <br />
+  to be out of order this time. I did figure out how to partition (it's easier than it looks), <br />
+  but I couldn't complete step 4 of partitioning according to the README.  I will wipe and reload <br />
+  the MicroSD and try again later. </p>
   <p><strong>References:</strong></p>
   <ul>
     <li><a href="http://www.tinycorelinux.net/9.x/armv6/releases/RPi/README">piCore README, with instructions for loading/prep</a>
@@ -41,8 +44,9 @@
   <p>Wiped and Reloaded SD card AGAIN.  Booted.</p>
   <p>Command:  sudo fdisk -u /dev/mmcblk0</p>
   <p>Reply:<br />
-    The number of cylinders for this disk is set to 30436.  There is nothing wrong with that, but this is larger than 1024, and could in certain setups cause problems with:<br>
-    1) software that runs at boot time (e.g., old versions of LILO) <br>
+    The number of cylinders for this disk is set to 30436.  There is nothing wrong with that, <br />
+    but this is larger than 1024, and could in certain setups cause problems with:<br />
+    1) software that runs at boot time (e.g., old versions of LILO) <br />
     2) booting and partitioning software from other OSs (e.g., DOD FDISK, OS/2 FDISK) </p><br />
   <p>In-program Command: p<br />
     Reply:<br />
@@ -112,29 +116,27 @@ The partition table has been altered. <br />
 Calling ioctl() to re-read partition table <br />
 fdisk: WARNING: rereading partition table failed, kernel still uses old table: Device or resource busy <br /><br />
 
-
-
 I'm gonna look up what ioctl() is. <br />
 
 Quote from a Wikipedia page: https://en.wikipedia.org/wiki/Ioctl <br />
 
-In computing, ioctl (an abbreviation of input/output control) is a system call for device-specific <br />
-input/output operations and other operations which cannot be expressed by regular system calls. It <br />
-takes a parameter specifying a request code; the effect of a call depends completely on the request <br />
-code. Request codes are often device-specific. For instance, a CD-ROM device driver which can instruct <br />
-a physical device to eject a disc would provide an ioctl request code to do that. Device-independent <br />
-request codes are sometimes used to give userspace access to kernel functions which are only used by <br />
-core system software or still under development. <br /><br />
+"In computing, ioctl (an abbreviation of input/output control) is a system call for device-specific <br />
+input/output operations and other operations which cannot be expressed by regular system calls. <br />
+It takes a parameter specifying a request code; the effect of a call depends completely on the <br />
+request code. Request codes are often device-specific. For instance, a CD-ROM device driver which <br />
+can instruct a physical device to eject a disc would provide an ioctl request code to do that. <br />
+Device-independent request codes are sometimes used to give userspace access to kernel functions <br />
+which are only used by core system software or still under development." <br /><br />
 
 The ioctl system call first appeared in Version 7 of Unix under that name. It is supported by most <br />
 Unix and Unix-like systems, including Linux and Mac OS X, though the available request codes differ <br />
-from system to system. Microsoft Windows provides a similar function, named "DeviceIoControl", in its <br />
-Win32 API. <br /><br />
+from system to system. Microsoft Windows provides a similar function, named "DeviceIoControl", <br />
+in its Win32 API. <br /><br />
 
-So apparently, Input/Output control is the computer's way of telling connected devices what to do. <br />
-I'm guessing this meant that whatever dwelt inside the OS image tried to read the partition table but <br />
-couldn't, and told me that the kernel still uses the old table.  This is likely why step 3 told me that <br />
-Kernel needed to be aware of changes.  But how do I do this, if I even need to at all?? <br /><br />
+So apparently, Input/Output control is the computer's way of telling connected devices what to <br />
+do. I'm guessing this meant that whatever dwelt inside the OS image tried to read the partition <br />
+table but couldn't, and told me that the kernel still uses the old table.  This is likely why step <br />
+3 told me that Kernel needed to be aware of changes.  But how do I do this, if I even need to at all?? <br /><br />
 
 I'm going to go ahead and reboot this command-line computer and see if anything changes. <br />
 command: sudo reboot <br /><br />
@@ -178,10 +180,10 @@ Rebooted to see the command line once more. <br />
 The README states under Boot codes that some boot codes are specified in the /mnt/mmcblk0p1/cmdline.txt file. <br />
 Maybe one of those will lead me to a GUI interface?? <br />
 <a href:"http://tinycorelinux.net/faq.html#req">http://tinycorelinux.net/faq.html#req</a><br />
-This link provides what appears to be settings for adjusting the boot protocols when at the boot prompt before <br />
-the system boots.  I will guess that, given that I'm running this on an RPi, I will have to press their <br />
-relevant function keys [F2], [F3], [F4] either on the rainbow screen or on the raspberries screen before <br />
-they turn into command-line ASCII text. <br /><br />
+This link provides what appears to be settings for adjusting the boot protocols when at the boot <br />
+prompt before the system boots.  I will guess that, given that I'm running this on an RPi, I will <br />
+have to press their relevant function keys [F2], [F3], [F4] either on the rainbow screen or on <br />
+the raspberries screen before they turn into command-line ASCII text. <br /><br />
 
 Command: sudo reboot <br />
 Presses F2 and F3 and F4 on the raspberries screen <br />
@@ -289,14 +291,15 @@ operating system.  I'm going to go ahead and download the PDF and continue from 
 
 Excerpt from the article on ZDnet, retrieved 31st of last month:<br />
 <a href="https://www.zdnet.com/article/hands-on-with-picore-7-0-tiny-core-linux-for-the-raspberry-pi/">https://www.zdnet.com/article/hands-on-with-picore-7-0-tiny-core-linux-for-the-raspberry-pi/</a><br />
-"piCore is certainly not for everyone -- but then again neither is Tiny Core, or any of the other Core <br />
-distributions, for that matter. piCore is intended for intermediate to advanced Linux users who want a <br />
-solid base on which to build their own system, making it exactly what they want." <br /><br />
+"piCore is certainly not for everyone -- but then again neither is Tiny Core, or any of the other <br />
+Core distributions, for that matter. piCore is intended for intermediate to advanced Linux users <br />
+who want a solid base on which to build their own system, making it exactly what they want." <br /><br />
 
-Okay.  I'm not entirely sure what packages I might be missing from the TC download/install, nor what I <br />
-need to do to track down these missing packages, but I do feel as if I've got a solid footing here.  I <br />
-will put this project on hold for right now, and use my second microSD card to load another <br />
-Debian-based Linux distro, Raspbian, for another project that the Professor just revealed.
+Okay.  I'm not entirely sure what packages I might be missing from the TC download/install, nor <br />
+what I need to do to track down these missing packages, but I do feel as if I've got a solid <br />
+footing here.  I will put this project on hold for right now, and use my second microSD card to <br />
+load another Debian-based Linux distro, Raspbian, for another project that the Professor just <br />
+revealed.</p>
 
 <h3>18 February 2019</h3>  
 
@@ -373,7 +376,7 @@ sudo adduser wre sudo <br /><br />
 Attempted--and failed--to install Uncomplicated Fire Wall (ufw) and configure Fail2Ban <br />
 (fail2ban) via command line.  The former returned a failure to fetch packages from the <br />
 repositories and the latter was not configured--I attempted to manually copy the jail configuration <br /> 
-file to jail.local.  Uninstalled.  I'll try again next time. </p><br /><br />
+file to jail.local.  Uninstalled.  I'll try again next time. </p>
 
 <h3>21 Mar 2019 (Raspbian)</h3>
 
@@ -421,7 +424,54 @@ Looks like I'll try to use this app as a superuser. <br />
 Command in terminal: sudo leafpad %f <br />
 Now I'm able to edit and save the index page.  Odd. <br />
 Trying again, accessing from GUI, without the super-user privileges. <br />
-Once again, I'm unable to edit.  The more you know... <br /><br />
+Once again, I'm unable to edit.  The more you know...</p>
+  
+<h3>28 Mar 2019 (Raspbian)</h3>
+
+<p>I'm going to edit my Apache2 pages to archive my projects from CMST 247.  This is one of the <br /> 
+goals for this studio course. <br /><br />
+
+Attempting to create directory 'projects' in /var/www/html/ <br />
+Permission denied.  ????? <br /><br />
+
+Found web page: <br />
+<a href="https://askubuntu.com/questions/767504/permissions-problems-with-var-www-html-and-my-own-home-directory-for-a-website">https://askubuntu.com/questions/767504/permissions-problems-with-var-www-html-and-my-own-home-directory-for-a-website</a><br /><br />
+
+Despite my computer being Raspbian and not Ubuntu, I'll try this. <br /><br />
+
+In terminal: <br />
+sudo cp -r /home/wre/Desktop/projects/ /var/www/html/ <br /><br />
+
+It copied the entire projects folder, contents and all.  That's exactly what I was planning to do. <br /><br />
+
+Now to load leafpad (as sudo) and edit my stuff! <br /><br />
+
+An edit to /var/www/html/index.html later and I've got the basis of a website which I had to make.  <br />
+Happy as a clam--I then made an external CSS file for the index page. </p>
+
+<h3>4 Apr 2019 (Raspbian)</h3>
+
+<p>Website update - added Project 4 - Loan Amortization Calculator and IRA Calculator. <br />
+Edited HTML and CSS on main project page. <br /><br />
+
+The time and date have been wrong for several weeks. <br />
+Reading the Debian Reference leads me to a 'Managing Accurate Date and Time' which recommends <br />
+a package called 'chrony', which comprises a background process (a.k.a. daemon) chronyd, and a <br />
+command-line user interface chronyc.  I'm going to put it on and try to make it work. <br /><br />
+
+sudo apt-get install chrony <br />
+sudo chronyc <br /><br />
+
+This link helped with commands: <br />
+<a href="https://chrony.tuxfamily.org/doc/3.4/chronyc.html">https://chrony.tuxfamily.org/doc/3.4/chronyc.html</a></p>
+
+<h3>11 Apr 2019 (Raspbian)</h3>
+
+<p>Updated the website - added Project 5 - loantable.html and iratable.html <br /><br />
+
+Removed Minecraft Pi edition and its related packages (and two Python packages related to <br />
+Minecraft Pi) because it will not open.  No use in having a program take up space if it will <br />
+not function. </p>
 
 </body>
 </html>
