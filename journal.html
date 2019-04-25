@@ -481,7 +481,18 @@ It allows you to put in your commands as the root user--you don't have to type '
 <h3>25 Apr 2019 (Raspbian)</h3>
 
 <p>Updated portfolio to include my project from CMST 135 and lab reports from CMST 250 and <br />
-  CMST 315.</p>
+  CMST 315. <br />
+  Any attempts from the other students to access my web-server hosted portfolio failed.  Port <br />
+  scans from one of them showed that all of the ports on my Pi were filtered.  Pings were <br />
+  successful, however.  I had forgotten that several  classes ago I had installed Uncomplicated <br />
+  Fire Wall (ufw) on my Pi. <br /><br />
+  
+  Input command (as root): <br />
+  ufw allow 80 <br /><br />
+  
+  They could view my page now.  As per requests on my classmates' end, I'll instruct them on <br />
+  installing the firewall and other security features courtesy of the page on Raspberry Pi <br />
+  Documentation.</ p>
 
 </body>
 </html>
