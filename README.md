@@ -1,3 +1,10 @@
+17 May 2019
+
+Added portfolio_spring2019.zip.
+Removed Web of Colors as it is part of the portfolio.
+
+
+
 13 Dec 2018 - My project from CMST 135 (Web of Colors)
 
 /*As I did not take CMST 103, I did not include a p5js sketch with my project.*/
