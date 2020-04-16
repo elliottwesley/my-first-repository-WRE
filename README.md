@@ -1,4 +1,5 @@
 16 April 2020
+
 Revamped the layout of my portfolio.  Rather than two columns with a bunch of links between them, the main page is congregated with large buttons that lead to subpages with descriptions (will do these soon), project images (will do these soon), and links to the projects themselves.  As part of the remake, I've removed a decent portion of the links that were on the old portfolio as I want the new portfolio to favor actual projects rather than assignments.  The laboratory reports, though, are still included.
 
 17 May 2019
