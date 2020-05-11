@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Case Study - HTML</title>
+</head>
+<body>
+  
+<i><span style="font-weight: 400;">Lab partners: Caroline T., Matthew D., Nic C.</span></i><br /><br />
+
+<b>Objectives</b><br />
+
+<span style="font-weight: 400;">For our final lab and case study, we were to design and construct a functional network using Active Directory Domain Services, Distributed File System, and Group Policy for a fictitious company called J.Q. Adams Corporation (Harding, 2019).</span><br /><br />
+
+<b>Equipment List</b><br />
+
+<i><span style="font-weight: 400;">Hardware:</span></i><br />
+
+<span style="font-weight: 400;">Laboratory computers (Windows 10) and peripherals</span><br />
+
+<span style="font-weight: 400;">Physical server (installed with Hyper-V)</span><br />
+
+<i><span style="font-weight: 400;">Software:</span></i><br />
+
+<span style="font-weight: 400;">Hyper-V</span><br />
+
+<span style="font-weight: 400;">Windows Server 2016 (on VMs) and its features</span><br />
+
+<span style="font-weight: 400;">Windows 10 (Client, on a VM)</span><br /><br />
+
+<b>Notes, Observations, and Questions</b><br />
+
+<i><span style="font-weight: 400;">Day 1 - 30 April</span></i><br />
+
+<span style="font-weight: 400;">The assignment was introduced as we were finishing up our previous lab.  Today was the day to discuss and plan how we would set up our network and its features, following the criteria on the sheet (Harding 2019):</span><br />
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The provided organization chart for the corporation </span><i><span style="font-weight: 400;">(Fig. 1)</span></i></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The network will have two servers: </span><i><span style="font-weight: 400;">Administration</span></i><span style="font-weight: 400;"> and </span><i><span style="font-weight: 400;">Production</span></i></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Several parameters for the network file system as follows:</span></li>
+</ul>
+<ol>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">All users will need access to a fictitious software suite called WinOffice that contains these programs: a word processor WP, a spreadsheet writer SS and a slideshow graphics program PG.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The president, vice presidents, and finance and accounting employees need access to the files of a fictitious accounting system, AcctSys, which will be kept on the administration server.  The application will have a program directory AcctSys and a data directory Asdata, which will have four subdirectories: AS_GL, AS_AP, AS_AR and AS_PR.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The president and the production employees need access to the files of a fictitious inventory tracking system named InvTrack.  It will have a program directory InvTrack and a data directory ITdata, which will have three subdirectories: ITForms, ITTables and ITRprts.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">All staff members need access to a SHARED directory and a REPORTS directory which will be kept on the administration server.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Every staff member needs their own HOME directory that [s]he and only [s]he can access.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The president and vice presidents need a directory that only they can access.</span></li>
+</ol>
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Other considerations as follows:</span></li>
+</ul>
+<ol>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Information services should work as efficiently as possible.  Users and computers should therefore be managed from a central location.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Distributed File System, folder redirection, and disk quotas should be used to store company files on the servers.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Naming conventions for user accounts, computers, servers, printers, folders, et caetera will be helpful to users and incoming IS staff.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Roaming profiles are necessary as production users often migrate from machine to machine.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Security is top priority.</span></li>
+</ol>
+<i><span style="font-weight: 400;">Day 2 - 2 May</span></i><br />
+
+<span style="font-weight: 400;">Our original plan was to construct our case study network off of the one we used in our previous seven labs.  We immediately ran into a problem: we could not access our HYPER1 network for some reason aside from ridiculously slow processing.  The Professor suggested logging into the IP address of another of the physical servers and accessing our HYPER1 network from there, which worked.</span><br />
+
+<span style="font-weight: 400;">We began by cloning our </span><i><span style="font-weight: 400;">WinServer1a</span></i><span style="font-weight: 400;"> from our previous labs by use of the Sysprep tool.  We created one clone and the amount of free memory on our physical server became too small to make a second clone.  The solution was to delete the unneeded </span><i><span style="font-weight: 400;">WinServer1a</span></i><span style="font-weight: 400;"> and </span><i><span style="font-weight: 400;">WinServer1b</span></i><span style="font-weight: 400;"> to free up space.  This had to be done from the powershell terminal within the physical server itself </span><i><span style="font-weight: 400;">(Fig. 3)</span></i><span style="font-weight: 400;">, and an unauthored help article on the Microsoft website explained how to use the </span><i><span style="font-weight: 400;">“Remove-VM”</span></i><span style="font-weight: 400;"> command to forcibly delete a virtual machine from Hyper-V.</span><br />
+
+<span style="font-weight: 400;">We left our </span><i><span style="font-weight: 400;">WinClient</span></i><span style="font-weight: 400;"> virtual machine alone, as it would later be used to test the user accounts on our network when it was complete.</span><br />
+
+<span style="font-weight: 400;">Once our new virtual servers were booted, we proceeded to access the system settings on each and manually set names </span><i><span style="font-weight: 400;">JQAdministration</span></i><span style="font-weight: 400;">, which would later automatically be condensed to </span><i><span style="font-weight: 400;">JQADMINISTRATIO</span></i><span style="font-weight: 400;"> in our server applications presumably because of a character limit, and </span><i><span style="font-weight: 400;">JQProduction</span></i><span style="font-weight: 400;">], IP addresses, subnet masks, default gateways, and preferred and alternate DNS servers for each.  Our intention was to use the same IP addresses as our now-deleted servers. We would find out next class that we had input the DNS addresses incorrectly and too soon as we should have installed Active Directory Domain Services [AD DS] on each of the servers first.  Regardless we installed AD DS on the </span><i><span style="font-weight: 400;">JQAdministration</span></i><span style="font-weight: 400;"> server before class ended.</span><br />
+
+<i><span style="font-weight: 400;">Day 3 - 7 May</span></i><br />
+
+<span style="font-weight: 400;">The next step was to configure AD DS on </span><i><span style="font-weight: 400;">JQAdministration</span></i><span style="font-weight: 400;"> and make the server a domain controller before constructing the Active Directory structure we agreed on two classes ago </span><i><span style="font-weight: 400;">(Fig. 3)</span></i><span style="font-weight: 400;">.  We then attempted to repeat the former two steps on the </span><i><span style="font-weight: 400;">JQProduction</span></i><span style="font-weight: 400;"> server only to find that we could not install AD DS on the server because it was not connected to our virtual network.  Examining the IP addresses we manually put in last class revealed that our other server </span><i><span style="font-weight: 400;">[JQAdministration]</span></i><span style="font-weight: 400;">’s preferred DNS server, which we originally set to be the </span><i><span style="font-weight: 400;">JQProduction</span></i><span style="font-weight: 400;"> server, was replaced with the loopback address because the intended destination did not appear on the network.  Restarting our DNS service from the command line rectified this issue and we corrected the IP addresses and installed AD DS on the </span><i><span style="font-weight: 400;">JQProduction server</span></i><span style="font-weight: 400;"> and made it a domain controller on our network [with difficulty, we had to go into the system settings to join our server to the domain, the Server Manager application didn’t let us for some reason].</span><br />
+
+<span style="font-weight: 400;">We then installed DFS Namespace and DFS Replication on both servers, set up </span><i><span style="font-weight: 400;">JQAdministration</span></i><span style="font-weight: 400;"> as our namespace server, and the DFS replication was done automatically just like when we learned DFS a few labs ago.</span><br />
+
+<span style="font-weight: 400;">The last task accomplished today was the creation of thirty users on the network.  The username protocol was a capitalized first initial followed by capitalized last name.  Passwords were, for the sake of the case study, the same for each user and mandatory password changes were disabled.  Obviously, the latter two would not be implemented in a real-world network for security reasons.</span><br />
+
+<i><span style="font-weight: 400;">Day 4 - 9 May</span></i><br />
+
+<span style="font-weight: 400;">We chose to “divide and conquer” to get the rest of the case study finished.  The tasks done were [in no particular order]:</span>
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Designating the folder redirections in the DFS to satisfy the directory and file requirements specified on the requirements sheet [to represent the fictitious programs, we used blank text documents and manually changed the file extension to .exe]</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Added the client machine to our virtual network [we had to do this via another group’s HYPER-V IP address and access the client as the administrator to move it to our JQAdams domain]</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Installed </span><i><span style="font-weight: 400;">Print and Document Services</span></i><span style="font-weight: 400;"> on the JQAdministration server and sent a test page </span><i><span style="font-weight: 400;">(Fig. 4)</span></i><span style="font-weight: 400;">--which we didn’t receive until AFTER the professor discovered that the printer wasn’t plugged into the physical topology in the lab [other groups must have had this problem too].</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Installed web browser </span><i><span style="font-weight: 400;">Chrome Enterprise</span></i><span style="font-weight: 400;"> on the JQProduction server.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Created a bunch of Group Policy Objects and applied them, as follows:</span>
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Password policy: password history of 24 passwords, password maximum age 180 days, password minimum age 7 days.  Applied to domain level and enforced.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Account lockout policy: lockout duration 15 minutes, lockout threshold 5 incorrect attemps, reset lockout counter after 15 minutes.  Applied to domain level and enforced.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Control what users can access on the desktop: removed computer icon from the desktop, hid network icon from the desktop, hid Internet Explorer from the desktop.  Applied to domain level.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Network drive settings policy: each employee has a drive M only (s)he can access.  Applied to domain level.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Idle-time lockout policy: machine inactivity limit 0 seconds.  This was done because the corresponding setting is a preference and user-accessible; thus the client machine still had the 30-second limit from our previous labs.  Applied to domain level.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Printer connection policy.  Applied to the Administration organizational unit.  As this was the activity I missed in lab four, I found a brief online article with several ways to find the share name and path to a network printer (PPTools, 2011).</span></li>
+</ul>
+</li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Attempted to apply GPOs for Chrome Enterprise.</span></li>
+</ul>
+<b>Diagrams, flowcharts, and figures</b><br /><br />
+
+<span style="font-weight: 400;"><img class="alignnone size-full wp-image-170" src="https://wrelab.files.wordpress.com/2019/05/case-study-figure-01.jpg" alt="Case Study Figure 01" width="640" height="480" /></span><br />
+
+<i><span style="font-weight: 400;">Fig. 1. - The company structure as provided on the sheet.</span></i><br /><br />
+
+ 
+
+<img class="alignnone size-large wp-image-172" src="https://wrelab.files.wordpress.com/2019/05/case-study-figure-02.jpg?w=768" alt="Case Study Figure 02" width="768" height="1024" /><br />
+
+<i><span style="font-weight: 400;">Fig. 2. - Using the powershell terminal built into Hyper-V.  Issuing commands here as administrator is the only way to truly guarantee a change takes effect--in our case, deleting an unneeded VM.</span></i><br /><br />
+
+<i><span style="font-weight: 400;"><img class="alignnone size-full wp-image-173" src="https://wrelab.files.wordpress.com/2019/05/case-study-figure-03.png" alt="Case Study Figure 03" width="595" height="446" /></span></i><br />
+
+<i><span style="font-weight: 400;">Fig. 3. - The Active Directory structure--domain, primary OU, and all the other OUs nested beneath it.</span></i><br /><br />
+
+<i><span style="font-weight: 400;"><img class="alignnone size-full wp-image-174" src="https://wrelab.files.wordpress.com/2019/05/case-study-figure-04.jpg" alt="Case Study Figure 04" width="480" height="640" /></span></i><br />
+
+<i><span style="font-weight: 400;">Fig. 4. - The test page--decent quality, considering the printer in the lab looks like it was from the 90s.</span></i><br /><br />
+
+<b>References</b><br />
+
+<span style="font-weight: 400;">Harding, Troy. (2019.) Case Study - J.Q. Adams Corporation. Print.</span><br />
+
+<span style="font-weight: 400;">Kapoor, Raakesh.  (2015, October 19.)  How to Delegate Control in Active Directory Users and Computers.  Retrieved from http://www.itingredients.com/how-to-delegate-control-in-active-directory-users-and-computers/</span><br />
+
+<span style="font-weight: 400;">Microsoft. (n.d.) Remove-VM. In </span><i><span style="font-weight: 400;">Windows 10 and Windows Server 2016 PowerShell</span></i><span style="font-weight: 400;">. Retrieved from https://docs.microsoft.com/en-us/powershell/module/hyper-v/remove-vm?view=win10-ps</span><br />
+
+<span style="font-weight: 400;">PPTools. (2011, June 7.) How to find the share name and path to a network printer. Retrieved from http://www.pptfaq.com/FAQ00756_How_to_find_the_share_name_and
+</span><span style="font-weight: 400;">_path_to_a_network_printer.htm</span><br /><br />
+
+<b>Handout Questions</b><br />
+
+<i><span style="font-weight: 400;">“What questions would you ask the company to help you plan the Active Directory [structure]?”</span></i>
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The hierarchy of the workplace (if not provided), its buildings/locations, </span>groups of workers/departments</li>
+	<li><span style="font-weight: 400;">What network resources and software packages are used/needed by each group to do their jobs?</span></li>
+	<li>Anticipated growth/new departments and buildings?</li>
+</ul>
+<i><span style="font-weight: 400;">“Describe your Active Directory structure including OUs, users and groups.  Include any assumptions you made about the company that affected your design.”</span></i>
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">See </span><i><span style="font-weight: 400;">Figure 3</span></i><span style="font-weight: 400;"> for OU structure.  Users were arranged into groups based on their departments and workgroups, and these groups were placed within their respective organizational units.</span></li>
+	<li>We added the I.T. organizational unit despite no such department being within the provided hierarchy because a networking department is absolutely necessary for managing user accounts of the employees within the company.</li>
+</ul>
+“Describe your file directory structure you created for the JQ Adams case study.  Indicate which folders are being shared.”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">A folder on the desktop of the JQAdministration server held other folders with ‘programs’ as specified in the requirements of the assignment.  Another folder on the JQProduction server stood alone. These folders were shared as specified on the assignment.</span></li>
+</ul>
+“What is your naming policy for user accounts?”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Our naming policy was first initial followed by last name.  No spaces.</span></li>
+</ul>
+“Describe how you can delegate full control of managing production user accounts to the Production Vice President.”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">To delegate administration of an organizational unit of accounts, go into Active Directory Users and Computers and right-click the OU to be delegated and click </span><i><span style="font-weight: 400;">Delegate Control</span></i><span style="font-weight: 400;">.  In the wizard that shows up click </span><i><span style="font-weight: 400;">Add</span></i><span style="font-weight: 400;"> and select the user(s) and/or group(s) to delegate to and then choose the tasks to delegate (Kapoor, 2015).</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">In the case of this exercise, the global security group was in the </span><i><span style="font-weight: 400;">Production</span></i><span style="font-weight: 400;"> OU, containing the production workgroups and quality assurance users, control of which was delegated to the VP of Production.</span></li>
+</ul>
+“Describe how you can use global groups to group users together and then domain local groups to provide access to network resources.  For example, you could describe how you used this concept to provide access for finance users to the AcctSys folder.”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">In Active Directory Users and Computers, create a new global security group </span><i><span style="font-weight: 400;">Finance</span></i><span style="font-weight: 400;">.  Make the finance users members of this group.  Then, create a domain-local security group [named AcctSys, Accounting, or similar].  Make the </span><i><span style="font-weight: 400;">Finance</span></i><span style="font-weight: 400;"> global group a member of the domain local group.</span></li>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Then, on the server with the </span><i><span style="font-weight: 400;">AcctSys</span></i><span style="font-weight: 400;"> folder, right-click the folder and click </span><i><span style="font-weight: 400;">Properties</span></i><span style="font-weight: 400;">, then click the Security tab and grant permission to the domain-local group, which contains the </span><i><span style="font-weight: 400;">Finance</span></i><span style="font-weight: 400;"> global group and its users.</span></li>
+</ul>
+“Generally speaking, what are the advantages of using global groups to manage users and then using domain local groups on the Security Tab to provide access?”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Using global groups to manage users helps to categorize users based on their positions in the business hierarchy.  A user can be members of multiple groups. Domain local groups, being the ones that provide access to resources, can have users or global groups as members.  In short, the advantage of global and domain local groups are that they simplify the process for granting access to files and directories.</span></li>
+</ul>
+“Why is it important to set disk quotas for users?”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The data these users are being allowed comes from the servers.  If the disk quotas were not set, there would be a looming risk of all the disk space on the servers being taken up.</span></li>
+</ul>
+“Briefly describe how you setup DFS for your JQ Adams project.”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">As stated above, we made the </span><i><span style="font-weight: 400;">JQAdministration </span></i><span style="font-weight: 400;">server the namespace server, then enabled DFS replication to accommodate the </span><i><span style="font-weight: 400;">JQProduction</span></i><span style="font-weight: 400;"> server.  Folders were added to the DFS from each server.</span></li>
+</ul>
+“What are at least two advantages of using DFS?”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The advantages of using Distributed File System are that it allows the administrator an easier method to grant access to shared folders and files, it offers a single hierarchical structure for the shared resources, and it eliminates the need for users to browse for the shared resources.</span></li>
+</ul>
+“What group policies did you setup for this project?”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">See </span><i><span style="font-weight: 400;">Day 4</span></i><span style="font-weight: 400;"> under </span><b>Notes, Observations and Questions</b><span style="font-weight: 400;"> for a comprehensive list.</span></li>
+</ul>
+“What information can you get from the GPResult tool?”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">The </span><i><span style="font-weight: 400;">gpresult</span></i><span style="font-weight: 400;"> command, used in the </span><i><span style="font-weight: 400;">cmd</span></i><span style="font-weight: 400;"> terminal app, is used to show the Group Policies that are applied--user-side and/or computer-side--based on the suffixes that were issued with the command.</span></li>
+</ul>
+“Describe how you can use Group Policy to distribute and control Chrome on the client computers.”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">Much like the available policies for Internet Explorer, the policies for Chrome Enterprise can restrict certain features such as extensions.</span></li>
+</ul>
+“Explain how roaming profiles can be useful.”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">As the name suggests, roaming profiles are not limited to one workstation or even their native network.  They can be accessed from any compatible computer at any time. The primary benefit from this is the account can be accessed off-site and off-network.</span></li>
+</ul>
+“Describe problems or issues you had while implementing this project.  How did you work around or overcome the problems?”
+<ul>
+	<li style="font-weight: 400;"><span style="font-weight: 400;">As stated in </span><b>Notes, Observations and Questions</b><span style="font-weight: 400;">, our issues included Hyper-V’s refusal to clone a virtual machine--this was solved by forcing the deletion of old virtual servers via the command line terminal on the server, the Production server not being connected to the virtual network--solved by restarting the Domain Name Service, and the printer not printing the requested test page--the professor spotted that the printer was not connected to the lab network.</span></li>
+</ul>
+<b>Conclusions</b><br />
+
+<span style="font-weight: 400;">In this case study I got to apply what I learned throughout this semester-long course in a “real-world” exercise, complete with several issues much like those that may arise in a real network and “new” software and technology just like those that get churned out frequently in the digital age.</span><br />
+  
+</body>
+</html>

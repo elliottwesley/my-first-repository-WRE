@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lab Report 7 - HTML</title>
+</head>
+<body>
+
+<b>Objectives</b><br />
+
+<span style="font-weight:400;">Our seventh lab was done in two parts:</span><br />
+
+<span style="font-weight:400;">Objective 1 of 2 - Assemble a network with a neighbor using a router, two switches, and necessary cabling, then program it.  This will also provide an understanding of the necessities of IP networking.</span><br />
+
+<span style="font-weight:400;">Objective 2 of 2 - Examine a packet sniffing application called Wireshark to learn how such applications function.</span><br /><br />
+
+<b>Equipment List</b><br />
+
+<i><span style="font-weight:400;">Hardware:</span></i><br />
+
+<span style="font-weight:400;">Cisco 1700 Series Router</span><br />
+
+<span style="font-weight:400;">Switch (2)</span><br />
+
+<span style="font-weight:400;">RJ-45 connection cables</span><br />
+
+<span style="font-weight:400;">Any other necessary connection cables (we needed serial port cables) </span><br />
+
+<span style="font-weight:400;">Power supply cables</span><br />
+
+<i><span style="font-weight:400;">Software:</span></i><br />
+
+<span style="font-weight:400;">Windows 10 operating system</span><br />
+
+<span style="font-weight:400;">Terminal emulator software</span><br />
+<ul>
+	<li style="font-weight:400;"><span style="font-weight:400;">We used </span><i><span style="font-weight:400;">Hyperterminal</span></i><span style="font-weight:400;"> (hypertrm.exe), which is normally included with older versions of Windows</span></li><br />
+</ul>
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">PuTTY</span></i><span style="font-weight:400;"> is a similar free and open-source program.</span></li><br />
+</ul>
+<span style="font-weight:400;">Packet sniffing software</span><br />
+<ul>
+	<li style="list-style-type:none;">
+<ul>
+	<li style="font-weight:400;"><span style="font-weight:400;">We used </span><i><span style="font-weight:400;">Wireshark</span></i><span style="font-weight:400;">: </span><a href="https://www.wireshark.org/"><span style="font-weight:400;">https://www.wireshark.org/</span></a></li><br />
+</ul>
+</li>
+</ul>
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">Snort</span><span style="font-weight:400;"> is another free and open-source intrusion detection system: </span><a href="https://www.snort.org/"><span style="font-weight:400;">https://www.snort.org/</span></a></i></li><br />
+</ul><br />
+<b>Notes, Observations, and Questions</b><br />
+
+<i><span style="font-weight:400;">Objective 1 of 2 - Construct a simple network and program it for use in the later portion of the lab.</span></i><br />
+
+<span style="font-weight:400;">Everyone was split into three groups of two, and each group would build a similar network: each student in a group would have a computer on the end, connected to a switch, which is connected to a router in the center (</span><i><span style="font-weight:400;">See Figure 1)</span></i><span style="font-weight:400;">.  Power cords would of course be linked to the appliances as needed.</span><br />
+
+<span style="font-weight:400;">The next step was to use Hyperterminal, a terminal emulator, to program the router by assigning IP addresses and standard subnets to each side of the network.  According to the instructions on the lab handout, we were to program one side to be a class C network and the other a class B network </span><i><span style="font-weight:400;">(See Figure 2)</span></i><span style="font-weight:400;">.  Much like any terminal, programming a router requires use of a series of commands </span><i><span style="font-weight:400;">(See Figure 3)</span></i><span style="font-weight:400;">.  The result was a small network in which one computer could reliably ping the other and receive a response.</span><br />
+
+<i><span style="font-weight:400;">Objective 2 of 2 - Learn how packet sniffing software works</span></i><span style="font-weight:400;">.</span><br />
+
+<b>DISCLAIMER: Packet sniffing software can be classified as spy equipment.  Therefore, if you decide to make use of such software, ONLY use it on networks where you have permission to do so, namely your own.  You can be arrested for using this software to spy on other people’s computers/networks without proper authorization.</b><br />
+
+<span style="font-weight:400;">For the second component of this lab, we explored the world of cyber-surveillance by using Wireshark, one of many programs designed to sniff packets, discern what users are doing on a network, and detect intruders.  Such programs work by taking ‘snapshots’ of activity; the protocols associated with each packet can then be examined to find the source and intended destination of that packet and the request/contents inside (</span><i><span style="font-weight:400;">See Figure 4)</span></i><span style="font-weight:400;">.  We tested this software by pinging the addresses of various websites.</span><br /><br />
+
+<b>Diagrams, flowcharts, and figures</b><br />
+
+<img class="aligncenter size-full wp-image-92" src="https://wrelab.files.wordpress.com/2018/11/lab-07-figure-01.png" alt="Lab 07 - Figure 01" width="685" height="396" /><br />
+
+<i><span style="font-weight:400;">Figure 1. A diagram of the networks each partnership built.</span></i><br /><br />
+<table>
+<tbody>
+<tr>
+<th>Network Class</th>
+<th>First Octet (binary)</th>
+<th>First Octet (decimal)</th>
+<th>Default Subnet Mask</th>
+</tr>
+<tr>
+<td>Class A</td>
+<td>0 - - - - - - -</td>
+<td>0-127</td>
+<td>255.0.0.0</td>
+</tr>
+<tr>
+<td>Class B</td>
+<td>10 - - - - - -</td>
+<td>128-191</td>
+<td>255.255.0.0</td>
+</tr>
+<tr>
+<td>Class C</td>
+<td>110 - - - - -</td>
+<td>192-223</td>
+<td>255.255.255.0</td>
+</tr>
+</tbody>
+</table><br />
+<i><span style="font-weight:400;">Figure 2. The three classes of networks.</span></i><br /><br />
+
+<img class="aligncenter size-large wp-image-93" src="https://wrelab.files.wordpress.com/2018/11/lab-7-figure-3.jpg?w=1024" alt="Lab 7 Figure 3" width="1024" height="768" /><br />
+
+<i><span style="font-weight:400;">Figure 3. Using Hyperterminal (an older version) to program the router.  Search online for instructions on how to use terminal emulation software.</span></i><br /><br />
+
+<img class="aligncenter size-large wp-image-94" src="https://wrelab.files.wordpress.com/2018/11/lab-7-figure-4.jpg?w=1024" alt="Lab 7 Figure 4" width="1024" height="768" /><br />
+
+<i><span style="font-weight:400;">Figure 4. Professor’s demonstration of the Wireshark packet sniffer.  Among a slew of other activity across the campus, it detected his pinging to yahoo.com. </span></i><br /><br />
+
+<b>References</b><br />
+
+<i><span style="font-weight:400;">Genereux, B. (2018). Networking I - Exploring TCP/IP Networks.</span></i><br />
+
+<i><span style="font-weight:400;">Genereux, B. (2018). Networking I - Packet Sniffing with Wireshark.</span></i><br /><br />
+
+<b>Handout Questions</b><br />
+
+<span style="font-weight:400;">--</span><br /><br />
+
+<b>Conclusions</b><br />
+
+<span style="font-weight:400;">In this laboratory, I learned how to construct and program a standalone TCP/IP network and how packet sniffing softwares work. </span><br />
+
+</body>
+</html>

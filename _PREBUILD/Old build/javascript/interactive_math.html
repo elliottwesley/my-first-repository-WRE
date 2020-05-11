@@ -1,0 +1,287 @@
+<!--
+v. 1.0 (7 Mar 2020)
+
+v. 1.1 (7 Mar 2020)
+* Corrected a spelling error in the header of the page.
+* Added a 'Click Here to Start' button upon loading the page.  Clicking it makes the buttons appear and generates the first problem.
+* The test only goes for a number of questions before the test ends.
+* The buttons now appear upon starting the test, and vanish upon concluding the test.
+* The scoreboard now only appears upon concluding the test.
+* The scoreboard now shows an accuracy percentage along with the time taken to take the test from start to finish.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+  body {
+    background-color: #ff9;
+  }
+  h4 { margin-top: 0px;
+    margin-bottom: 15px;
+    padding-top: 0.5em;
+    text-align: center;
+  }
+  h6 { margin-top: 0px;
+    margin-bottom: 35px;
+    padding-bottom: 0.5em;
+    text-align: center;
+  }
+  button {
+    width: 100px;
+    height: 100px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border-style: none;
+    background-color: #ffc;
+    font-family: Constantia, Georgia, serif;
+    font-weight: bold;
+    font-size: 2em;
+  }
+  button:hover { background-color: #ff6; }
+  button:active {
+    background-color: #cc3;
+    color: #ffc;
+  }
+  #header {
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Candara, Geneva, sans-serif;
+    font-size: 2em;
+  }
+  #output {
+    width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-family: Constantia, Georgia, serif;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    background-color: #fff;
+    border-style: solid;
+    border-color: #cc6;
+  }
+  #start {
+    width: 400px;
+    height: 100px;
+    background-color: #cfc;
+    font-size: 1em;
+  }
+  #buttons {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+  }
+  #scoreboard {
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Candara, Geneva, sans-serif;
+    font-size: 2em;
+    display: none;
+  }
+  .floatleft {
+    width: 50%;
+    float: left;
+  }
+  .floatright {
+    width: 50%;
+    float: right;
+  }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <h4>JS Math Generator v1.1</h4>
+    <hr />
+    <h6>A program that presents multiple-choice math problems.</h6>
+  </div>
+  <div id="output">
+    <button id="start" onclick="startGame()">Click Here to Start</button>
+  </div>
+  <br />
+  <div id="buttons">
+    <button id="button0" onclick="checkAnswer('button0', correct)"></button>
+    <button id="button1" onclick="checkAnswer('button1', correct)"></button>
+    <button id="button2" onclick="checkAnswer('button2', correct)"></button>
+    <button id="button3" onclick="checkAnswer('button3', correct)"></button>
+  </div>
+  <div id="scoreboard">
+    <br />
+    <div class="floatleft">
+      <h6 id="accuracyScore">Accuracy: --%</h6>
+      <h6 id="timeTakenScore">Time Taken: --s</h6>
+    </div>
+    <div class="floatright">
+      <h6 id="finalScore">Final Score: --s</h6>
+      <h6>(The higher, the better)</h6>
+    </div>
+  </div>
+  
+  <script>
+    "use strict";
+    var output = document.getElementById("output");   // the window with the problem to be solved by the user
+    var digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];      // the array of digits
+    var operators = [' + ', ' - '];                   // plus and minus signs
+    var a;          // drill problems will be in the format a+b=answer or a-b=answer,
+    var b;            // basically 1st-grade level math problems
+    var c;          // this is a placeholder to aid with making subtraction problems
+    var op;         // this represents the operator in the problem
+    var selector;   // this is used with Math.random to pull a number from the digits array
+
+    var correct;    // this represents the button with the correct answer choice
+    var button0 = document.getElementById('button0');
+    var button1 = document.getElementById('button1');
+    var button2 = document.getElementById('button2');
+    var button3 = document.getElementById('button3');
+    var buttons = document.getElementById('buttons');   // initially not displayed
+    
+    var wrong1;     // these first three represent wrong answers
+    var wrong2;
+    var wrong3;
+    var solution;   // this represents the correct answer to the math problem
+    
+    var startTime;  // this represents a Date object when the user started the test
+    var endTime;    // this represents a Date object when the user finished the test
+    
+    var numberRight = 0;  // this represents the number of problems the user got right
+    var numberWrong = 0;  // this represents the number of problems the user got wrong
+    var accuracy;
+    var timeTaken;
+    var accuracyScore = document.getElementById('accuracyScore');
+    var timeTakenScore = document.getElementById('timeTakenScore');
+    var finalScore = document.getElementById('finalScore');
+    var scoreboard = document.getElementById('scoreboard');   // initially not displayed
+    
+    function startGame () {
+      buttons.style.display="block";
+      startTime = new Date();
+      createNewProblem();
+    }
+    
+    function createNewProblem () {
+      problemGenerator();
+      correct = correctAnswer();
+      solution = calculateAnswer();
+      generateWrongAnswers();
+      writeButtons();
+    }
+
+    function problemGenerator () {
+        // Number and operator selection sequence
+      selector = Math.floor(Math.random() * 10);
+      a = digits[selector];
+      selector = Math.floor(Math.random() * 10);
+      b = digits[selector];
+        // now the operator is selected
+      selector = Math.floor(Math.random() * 2);
+      op = operators[selector];
+        // Checking sequence
+        if (op === ' + ') {
+          // check 1: if the problem is an addition problem, proceed to next check.
+          if (a + b >= digits.length) {
+            // check 2a: if the sum of a and b exceeds the digits array, reduce a and b so that they don't.
+            a = Math.floor(a / 2);
+            b = Math.floor(b / 2);
+          }
+        } else if (op === ' - ') {
+          // check 1: if the problem is a subtraction problem, proceed to next check.
+          if (a < b) {
+            // check 2b: if the minuend is less than the subtrahend, swap them.
+            c = a;
+            a = b;
+            b = c;
+          } else {
+          ;   // check 2b: else do nothing
+        }
+        // after the digits and operator have been selected, a new problem is then written in the output
+        }
+      output.innerHTML = a + op + b + " = " + "___" + "<br /><br />";
+        //the second line break is necessary to provide ample space between each problem
+    }
+
+    function correctAnswer () {
+      // select the button to receive the correct answer, based on ID
+      return 'button' + Math.floor(Math.random() * 4);
+    }
+    
+    function calculateAnswer () {
+      // solve the generated problem, returning the correct answer
+      if (op === ' + ') {
+        // the problem is an addition problem
+        return a + b;
+      } else if (op === ' - ') {
+        // the problem is a subtraction problem
+        return a - b;
+      }
+    }
+    
+    function generateWrongAnswers () {
+        // Randomly choose values for each wrong answer, making sure none of the wrong answers match one another or solution.
+      do {
+        selector = Math.floor(Math.random() * 10);
+        wrong1 = digits[selector];
+      } while (wrong1 == solution);
+      do {
+        selector = Math.floor(Math.random() * 10);
+        wrong2 = digits[selector];
+      } while (wrong2 == solution || wrong2 == wrong1);
+      do {
+        selector = Math.floor(Math.random() * 10);
+        wrong3 = digits[selector];
+      } while (wrong3 == solution || wrong3 == wrong1 || wrong3 == wrong2);
+    }
+    
+    function writeButtons () {
+        // This function writes answers on each of the buttons.  The button that receives the right answer is based on the correct variable.
+      if (correct === "button0") {
+        button0.innerHTML = solution;   // correct answer
+        button1.innerHTML = wrong1;
+        button2.innerHTML = wrong2;
+        button3.innerHTML = wrong3;
+      } else if (correct === "button1") {
+        button0.innerHTML = wrong1;
+        button1.innerHTML = solution;   // correct answer
+        button2.innerHTML = wrong2;
+        button3.innerHTML = wrong3;
+      } else if (correct === "button2") {
+        button0.innerHTML = wrong1;
+        button1.innerHTML = wrong2;
+        button2.innerHTML = solution;   // correct answer
+        button3.innerHTML = wrong3;
+      } else if (correct === "button3") {
+        button0.innerHTML = wrong1;
+        button1.innerHTML = wrong2;
+        button2.innerHTML = wrong3;
+        button3.innerHTML = solution;   // correct answer
+      }
+    }
+    
+    function checkAnswer (button, correct) {
+        // Checks if the user selected the correct answer, increments
+      if (button === correct) {
+        numberRight++;
+      } else if (button !== correct) {
+        numberWrong++;
+      }
+      // Then, if the specified number of problems have been solved, the test ends and the scoreboard is filled with the appropriate information and shown.
+      if (numberRight + numberWrong == 20) {
+        endTime = new Date();
+        accuracy = (numberRight / (numberRight+numberWrong) ) * 100;
+        timeTaken = ( (endTime-startTime) / 1000);
+        accuracyScore.innerHTML = "Accuracy: " + accuracy + "%";
+        timeTakenScore.innerHTML = "Time Taken: " + timeTaken + "s";
+        finalScore.innerHTML = "Final Score: " + Math.floor(accuracy + ( ( (numberRight+numberWrong) / timeTaken) * Math.sqrt(accuracy) ) ) + " pts";
+        output.innerHTML = "Test Over";
+        buttons.style.display="none";
+        scoreboard.style.display="block";
+      } else
+        createNewProblem();
+    }
+  </script>
+</body>
+</html>
