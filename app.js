@@ -7,7 +7,6 @@ var compression = require('compression');
 var helmet = require('helmet');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 // Create the Express application
 var app = express();
