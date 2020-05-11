@@ -1,0 +1,104 @@
+* { box-sizing: border-box; }
+
+body {
+  background-color: #020;
+  color: #0f0;
+  font-family: Consolas, "Lucida Console", monospace;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 85%;
+}
+
+strong {
+  color: #6c3;
+}
+
+hr {
+  border-width: 1px;
+}
+
+h2 {
+  display: inline;
+}
+
+h3 {
+  color: #6f3;
+}
+
+p, ul {
+  text-align: left;
+}
+
+#hidden {
+  display: none;
+}
+
+footer {
+  clear: both;
+}
+
+.blockanchor {
+  width: 24%;
+  height: 160px;
+  line-height: 160px;
+  margin: 4px auto;
+  text-decoration: none;
+  border-style: double;
+  display: inline-block;
+}
+
+#floatleft {
+  float: left;
+  width: 50%;
+}
+
+#floatright {
+  float: right;
+  width: 50%;
+}
+
+#headcapt {
+  text-align: center;
+}
+
+@media only screen and (max-width: 1280px) {
+  .blockanchor {
+    width: 32%;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  body {
+    width: 90%;
+  }
+  
+  .blockanchor {
+    width: 48%;
+  }
+  
+  #floatleft {
+    float: none;
+    width: 100%;
+  }
+  
+  #floatright {
+    float: none;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  body: {
+    width: 95%;
+    font-size: smaller;
+  }
+  
+  .blockanchor { width: 100%; }
+}
+
+a:link { color: #0f0; }
+a:visited { color: #0f0; }
+a:focus { color: #0ff; }
+a:hover { color: #0ff; }
+a:active { color: #f0f; }
