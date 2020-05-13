@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lab Report 8 - HTML</title>
+</head>
+<body>
+
+<b>Objectives</b><br />
+
+<span style="font-weight:400;">The objective of this open-ended lab was to build a working Class B network with subnets (sub-networks) and manually assign IP addresses using similar equipment and programs to the IP Networking and Packet Sniffing lab.  We attempted this lab twice over the course of two weeks.</span><br /><br />
+
+<b>Equipment List</b><br />
+
+<i><span style="font-weight:400;">Hardware:</span></i><br />
+
+<span style="font-weight:400;">Various routers</span><br />
+
+<span style="font-weight:400;">Various switches</span><br />
+
+<span style="font-weight:400;">RJ45 connection cables</span><br />
+
+<span style="font-weight:400;">Laboratory modules or Raspberry Pi computers [any variety of computer will work]</span><br />
+
+<span style="font-weight:400;">Power cabling as needed</span><br />
+
+<i><span style="font-weight:400;">Software:</span></i><br />
+
+<span style="font-weight:400;">Hyperterminal (any terminal emulation software)</span><br /><br />
+
+<b>Notes, Observations, and Questions</b><br />
+
+<span style="font-weight:400;">The procedure for this lab comprises the same steps as objective one in lab seven.  To summarize; construct a network linking multiple computers together. However, in this lab our objective was to connect everyone together in a single network rather than three individual partnerships.  This network would be divided into subnetworks (</span><i><span style="font-weight:400;">See Figure 1</span></i><span style="font-weight:400;">).  For our first attempt at this lab, our blueprint comprised three routers, switches between and on the ends, and a computer for each person (</span><i><span style="font-weight:400;">See Figure 2</span></i><span style="font-weight:400;">).  Then, we would use Hyperterminal to configure the routers’ IP addresses and the default terminal applications on our computers to attempt to manually configure a static IP address for each computer.</span><br />
+
+<span style="font-weight:400;">Being an open-ended lab, and a reflection of what network workers do in real life, we could not anticipate everything going according to plan right away.  The main roadblock to our efforts was getting the static IP addresses to overwrite the DHCP-assigned ones and remain assigned to the computers. I wondered if the university’s network already connected to our computers had something to do with preventing static IP addresses from being assigned, or if the two-in-one router and switch played a factor in our unsuccessful setup.  We ultimately ran out of time to resolve the issue (time limit for our labs is 1 hour, 50 minutes) before cleanup.</span><br />
+
+<span style="font-weight:400;">We returned the next week to attempt the lab again.  This time, our network would comprise six routers (one for each student, no two-in-one devices), switches on the ends and in between each router, and a computer for each student (</span><i><span style="font-weight:400;">See Figure 3</span></i><span style="font-weight:400;">).  Despite the mass tangle of wires, assembly was just as simple as last time, and everyone got a chance to program a router.  However, not all routers were alike; some had </span><i><span style="font-weight:400;">e0</span></i><span style="font-weight:400;"> and </span><i><span style="font-weight:400;">f0</span></i><span style="font-weight:400;"> sides, and others had </span><i><span style="font-weight:400;">f0/0</span></i><span style="font-weight:400;"> and </span><i><span style="font-weight:400;">f0/1</span></i><span style="font-weight:400;"> sides, making programming them not as cut-and-dry as the last time.  I had connected my Raspberry Pi to the network, and so had to undergo a different procedure to the students who were using the Windows 10 computers in the room.  To do this, I referred to a page on the ModMyPi website instructing how to assign a static IP address. The IP address stuck this time, and so I attempted to ping other locations and classmates in the network.  However, the only locations I could reach from my Pi were both sides of the nearest router (I was on an end of the network). I could not successfully ping the nearest classmate. My first guess as to why this might happen relates to hardware; perhaps a wire connecting the router to my neighbor’s switch or a wire connecting my neighbor’s switch to his computer is faulty on the inside.  Alternatively, my second guess might have something to do with the differing hardware in the computers--an ARM based processor versus an x86 one, or a UNIX unit versus a Microsoft Windows one.</span><br /><br />
+
+<b>Diagrams, flowcharts, and figures</b><br />
+
+<span style="font-weight:400;"><img class="alignnone size-large wp-image-98" src="https://wrelab.files.wordpress.com/2018/11/lab-8-figure-1.jpg?w=1024" alt="Lab 8 Figure 1" width="1024" height="768" /></span><br />
+
+<span style="font-weight:400;">Figure 1. - In the process of dividing a network into sub-networks by borrowing bits from the next octet in the subnet mask.</span><br /><br />
+
+<img class="alignnone size-large wp-image-99" src="https://wrelab.files.wordpress.com/2018/11/lab-8-figure-2.jpg?w=1024" alt="Lab 8 Figure 2" width="1024" height="768" /><br />
+
+<span style="font-weight:400;">Figure 2. - The schematic for the first attempt at the lab.</span><br /><br />
+
+<span style="font-weight:400;"><img class="alignnone size-large wp-image-100" src="https://wrelab.files.wordpress.com/2018/11/lab-8-figure-3.jpg?w=1024" alt="Lab 8 Figure 3" width="1024" height="765" /></span><br />
+
+<span style="font-weight:400;">Figure 3. - The schematic for the second and final attempt at the lab.</span><br /><br />
+
+<b>References</b><br />
+
+<span style="font-weight:400;">Genereux, B. (2018). Networking I - Lab 8 Subnetting.</span><br />
+
+<span style="font-weight:400;">Mod My Pi. (2016, April 19). How to give your Raspberry Pi a static IP Address - update. </span>
+
+<span style="font-weight:400;">Retreived from </span>
+
+<span style="font-weight:400;">https://www.modmypi.com/blog/how-to-give-your-raspberry-pi</span><span style="font-weight:400;">-</span><span style="font-weight:400;">a</span><span style="font-weight:400;">-static-ip-address-update</span><br /><br />
+
+<b>Handout Questions</b><br />
+
+<span style="font-weight:400;">N/A</span><br /><br />
+
+<b>Conclusions</b><br />
+
+<span style="font-weight:400;">Even though both attempts at the lab were not without flaws, I learned how to successfully program a network to have subnets via a terminal or terminal emulator and to successfully assign a static IP address to a Linux-based computer.</span><br />
+
+</body>
+</html>

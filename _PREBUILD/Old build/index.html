@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="external.css">
+  <title>Wesley Elliott - My Portfolio</title>
+</head>
+<body>
+  <h1>Wesley Elliott - My Portfolio</h1>
+  <em><p id="headcapt">Greetings, curious adventurer.</p></em>
+  <hr />
+  
+  <div id="links">
+    <a class="blockanchor" href="labs/desc.html"><h2>Lab Reports</h2></a>
+    <a class="blockanchor" href="color/desc.html"><h2>Web of Colors</h2></a>
+    <a class="blockanchor" href="javascript/desc.html"><h2>My JS Projects</h2></a>
+    <a class="blockanchor" href="rebranding/desc.html"><h2>Rebrand + Web Ads</h2></a>
+    <a class="blockanchor" href="twist/desc.html"><h2>TWIST Web Collab</h2></a>
+  </div>
+  
+  <div id="hidden">
+    <div id="floatleft">
+      <h2>Class Projects</h2>
+    </div>
+    <div id="floatright">
+      <h2>Free Time Projects</h2>
+      <a href="freetime/truthtable.html">JS truth table generator (Spring 2019).</a><br />
+      <a href="freetime/dom-animation-sprites.html">Sprite animation in JS. Extension of an exercise from Programming I. (Spring 2019).</a><br /><br />
+  	</div>
+	</div>
+  <footer>
+    <hr />
+  2018-2020 W. R. Elliott.
+  </footer>
+    
+  <!-- And now, the script that randomly chooses a "humorous" phrase. -->
+  <script>
+    var headcapt = document.getElementById("headcapt");
+    var quotes = ["This is a random quote generator.",
+      "DuckDuckGo. Use it. Set it as your default.",
+      "If you must interact, plan it in advance.",
+      "I don't give hugs.",
+      "The closest thing we have to magic in the real world is computer programming.",
+      "Mages and wizards walk among us.",
+      "If you've spent the whole day lying down, it may be time for an all-nighter.",
+      "Never pay money for something that you can make with cardboard and office supplies.",
+      "Anything that can go wrong, will.",
+      "Insanity is doing the same thing over and over and expecting a different outcome.",
+      "You are never too old for LEGO sets.",
+      "Don't call me 'darling'.",
+      "If it weren't for the last minute, nothing would get done.",
+      "Correlation does not imply causation.",
+      "Refresh the page to see another quote!",
+      "Ping-pong is the one thing sports and programming have in common.",
+      "u n d e f i n e d",
+      "Feel free to take these quotes with a grain of salt.",
+      "There is no YEET in physics.",
+      "Hypnotists are programmers too.  Kind of.",
+      "What if Programmer were an RPG class?",
+      "I <3 HTML",
+      "I <3 CSS",
+      "I <3 Javascript",
+      "Windows and Linux user.  Solitaire nerd.  Introvert extraordinaire.",
+      "Super user do",
+      "Cursive handwriting is a lost art.",
+      "This statement is false.",
+      "Does a set of all sets that contain themselves contain itself?",
+      "C'est la vie.",
+      "When you have to quarantine, but you're already a reclusive hermit",
+      "Help!  I'm trapped in a caption factory!",
+      "Aleph-Null"];
+      // there are 33 quotes total
+    var rng = Math.floor(Math.random() * 33); // * number of quotes
+    headcapt.innerHTML = quotes[rng];
+  </script>
+</body>
+</html>
