@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lab Report 6 - HTML</title>
+</head>
+<body>
+
+<i><span style="font-weight:400;">Lab partners: </span></i><i><span style="font-weight:400;">Caroline T., Matthew D., Nic C.</span></i><br /><br />
+
+<b>Objectives</b><br />
+
+<span style="font-weight:400;">The goal for this lab was to learn to use the Group Policy Management Console, or GPMC (Harding, 2019), to create, edit, and assign Group Policy Objects to containers in an Active Directory network.</span><br /><br />
+
+<b>Equipment List</b><br />
+
+<i><span style="font-weight:400;">Hardware:</span></i><br />
+
+<span style="font-weight:400;">Laboratory computers and peripherals</span><br />
+
+<i><span style="font-weight:400;">Software:</span></i><br />
+
+<span style="font-weight:400;">Windows Server 2016</span><br />
+
+<span style="font-weight:400;">Windows 10 (as client)</span><br /><br />
+
+<b>Notes, Observations, and Questions</b><br />
+
+<i><span style="font-weight:400;">Day 1 - Creating and applying GPOs</span></i><br /><br />
+
+<span style="font-weight:400;">Prior to this day, we were to procure wallpapers--the lighter in file size, the better--to use in the lab.  We replicated two specific examples, </span><i><span style="font-weight:400;">Configuring the policy to apply a desktop wallpaper</span></i><span style="font-weight:400;"> and </span><i><span style="font-weight:400;">Linking our new GPO</span></i><span style="font-weight:400;">, from chapter 3 of the online textbook </span><i><span style="font-weight:400;">Mastering Windows Group Policy</span></i><span style="font-weight:400;"> that used Group Policy Objects, or GPOs, to change the user configuration policy to assign wallpapers to client accounts in a network. (Krause, 2018).</span><br />
+
+<span style="font-weight:400;">We compiled our wallpapers in a folder on our </span><i><span style="font-weight:400;">WinServer1a</span></i><span style="font-weight:400;"> and set the folder’s permissions to Full Control just so we could add it to our </span><i><span style="font-weight:400;">Public Data</span></i><span style="font-weight:400;"> folder.  To ensure that the GPOs we would create would apply to one and only one user, we went into Active Directory and separated our client accounts into individual OUs.  Then, we created four GPOs, one for each of those OUs, and edited them to set specific wallpapers. The final step was to actually create the links for each OU, which follows a similar process to creating a GPO.  Logging on to each of the client accounts on the virtual client computer confirmed that the GPOs were being applied.</span><br />
+
+<i><span style="font-weight:400;">Day 2 - Conflict Resolution, GPO Filtering</span></i><br />
+
+<span style="font-weight:400;">On the second day of the lab, we learned from sections </span><i><span style="font-weight:400;">GPUpdate</span></i><span style="font-weight:400;"> and </span><i><span style="font-weight:400;">GPResult</span></i><span style="font-weight:400;"> of chapter 3 in the onine textbook how to check group policies using a command-line terminal. Then, we explored several examples from chapter 4, namely </span><i><span style="font-weight:400;">Multiple GPOs linked at the same level</span></i><span style="font-weight:400;">, </span><i><span style="font-weight:400;">Blocking GPO inheritance</span></i><span style="font-weight:400;">, and </span><i><span style="font-weight:400;">Enforcing GPOs </span></i><span style="font-weight:400;">(Krause, 2018).</span><br />
+
+<span style="font-weight:400;">To paraphrase the aforementioned sections of chapter 3, the </span><i><span style="font-weight:400;">gpupdate</span></i><span style="font-weight:400;"> and </span><i><span style="font-weight:400;">gpresult</span></i> <i><span style="font-weight:400;">(Fig. 1) </span></i><span style="font-weight:400;">commands are respectively used to update the group policies and to show the precedence of the group policies being applied.  There are suffixes for each of these commands to alter their behavior; for instance </span><i><span style="font-weight:400;">gpupdate /Force</span></i><span style="font-weight:400;"> immediately updates the group policy settings to the workstation and user account, and </span><i><span style="font-weight:400;">gpresult /R</span></i><span style="font-weight:400;"> prints out a resultant-set-of-policy, or list of policies applied, right in the terminal (Krause, 2018).  Anytime </span><i><span style="font-weight:400;">gpupdate</span></i><span style="font-weight:400;"> or </span><i><span style="font-weight:400;">gpresult</span></i><span style="font-weight:400;"> is mentioned in this report, I’m using it as shorthand for </span><i><span style="font-weight:400;">gpupdate /Force</span></i><span style="font-weight:400;"> and </span><i><span style="font-weight:400;">gpresult /R</span></i><span style="font-weight:400;">.</span><br />
+
+<span style="font-weight:400;">Linking multiple Group Policy Objects to the same domain, site, or organizational unit will cause conflicts if both GPOs alter the same setting to different values.  We demonstrated this using our wallpapers by adding a GPO link to a different wallpaper in one of the client OUs, then logging onto the virtual client computer as the user who is now affected by both wallpapers.  Only one of these wallpaper GPOs will trump the other, and as we checked using </span><i><span style="font-weight:400;">gpresult</span></i><span style="font-weight:400;">, the reason is precedence--the GPO applied later wins out.</span><br />
+
+<span style="font-weight:400;">To demonstrate blocking inheritance, we set another link to a wallpaper GPO at the domain level, then </span><i><span style="font-weight:400;">ran gpupdate</span></i><span style="font-weight:400;"> and checked the list on the client computer.  The domain-level GPO appeared at the bottom of the list of applied policies, showing that it was applied and overruled by our OU-level policies.  Then, we set the OU with our client to block inheritance from the higher levels of the network. A client-side </span><i><span style="font-weight:400;">gpupdate </span></i><span style="font-weight:400;">and </span><i><span style="font-weight:400;">gpresult</span></i><span style="font-weight:400;"> later, and the domain-level GPO was gone from the applied policies list--instead it appeared on the list of policies not applied.  To demonstrate enforcing a GPO, we selected our domain-level GPO and set it to </span><i><span style="font-weight:400;">Link Enforced</span></i><span style="font-weight:400;">.  On the client computer, </span><i><span style="font-weight:400;">gpresult </span></i><span style="font-weight:400;">showed this GPO at the top of the precedence list, applied despite the OU containing this user blocking inheritance.</span><br />
+
+<i><span style="font-weight:400;">Day 3</span></i><span style="font-weight:400;"> - </span><i><span style="font-weight:400;">Security Filters and WMI Filters</span></i><br />
+
+<span style="font-weight:400;">The plan for the final part of the lab was to learn from the latter half of chapter 4 how to apply security filters and WMI filters to further restrict the scope of a GPO (Krause, 2018).</span><br />
+
+<span style="font-weight:400;">However, we ran into a problem when we were checking the client computer and command prompt to view our group policies on one of the user accounts: my own -- the group policies weren’t being applied at all and reasons were not specified </span><i><span style="font-weight:400;">(Fig. 1)</span></i><span style="font-weight:400;">.  My account was not under the OU set to block inheritance.  We checked the other user accounts and saw that the wallpaper policies were being applied to them properly.  Rather than trying to apply filtering on one of the clients whose wallpapers were actually working, we decided to do this on the account experiencing issues.  Attempting to apply filtering and even deleting the domain-level GPO link, and of course running </span><i><span style="font-weight:400;">gpupdate </span></i><span style="font-weight:400;">and </span><i><span style="font-weight:400;">gpresult</span></i><span style="font-weight:400;"> did nothing to resolve the issue aside from showing that the domain-level policy was indeed removed.  Given that both of the policies that made use of my wallpaper, despite working in the previous two classes, were filtered out for unknown reasons and not everyone else’s wallpapers, I am guessing the problem had something to do with either the GPO or the file itself or my user account [feasible given what we were about to do].</span><br />
+
+<span style="font-weight:400;">We decided to proceed with the lab in the hopes that the issue was a fluke and would resolve on its own.  Perhaps a WMI filter could bypass this and restore the wallpaper. We remade the domain-level GPO link and referenced the ‘Execute on Tuesday’ and ‘Execute on Wednesday’ queries from 2018 article </span><i><span style="font-weight:400;">Group Policy WMI Filtering</span></i><span style="font-weight:400;"> by VMware, Zerto, and Solarwinds certified professional Scott Forehand.  First we configured the Tuesday query to the GPO and then ran </span><i><span style="font-weight:400;">gpupdate</span></i><span style="font-weight:400;">, ran</span><i><span style="font-weight:400;"> gpresult</span></i><span style="font-weight:400;">, even rebooted the client, only to get the same results as before.  We then decided to adding </span><i><span style="font-weight:400;">Authenticated Users </span></i><span style="font-weight:400;">to Security Filtering.  This group included our administrator account as well as our client accounts, so in theory this would apply my wallpaper to each of the user accounts.  Logging out and logging back in showed the wallpaper the GPO should have been setting, at long last. The filter also appeared in the resultant set of policy in Command Prompt.  As we didn’t want the wallpaper applying to everyone in our domain, at least in class, we then changed the query to set the wallpaper on Wednesdays. A </span><i><span style="font-weight:400;">gpresult</span></i><span style="font-weight:400;"> on the client shown the policy being </span><i><span style="font-weight:400;">Denied</span></i><span style="font-weight:400;"> because of the WMI filter.</span><br /><br />
+
+<b>Diagrams, flowcharts, and figures</b><br />
+
+<img class="alignnone size-full wp-image-143" src="https://wrelab.files.wordpress.com/2019/04/lab-6-figure-01.png" alt="Lab 6 Figure 01" width="1920" height="1080" /><br />
+
+<i><span style="font-weight:400;">Fig. 1</span></i><span style="font-weight:400;">. - Using </span><i><span style="font-weight:400;">gpresult /R</span></i><span style="font-weight:400;"> in command prompt (cmd) on the client.  This shows a list of the policy settings that are being applied to the client and their precedence (higher position = applied later), any policies on the network but not applied, and the security groups the user is part of.  If cmd were being run as administrator, the results would show computer-side policy settings too.</span><br />
+
+<span style="font-weight:400;">This is also a picture of the issue we had on day 3 of the lab--a couple of our wallpaper policies are not applied for reasons unknown to the network!</span><br /><br />
+
+<b>References</b><br />
+
+<span style="font-weight:400;">Forehand, Scott.  (2018.) </span><i><span style="font-weight:400;">Group Policy WMI Filtering [blog post].  </span></i><span style="font-weight:400;">Retrieved from https://virtuallystable.com/2018/05/18/group-policy-wmi-filtering/</span><br />
+
+<span style="font-weight:400;">Harding, Troy.  (2019.) </span><i><span style="font-weight:400;">CMST 315 Intro to Sys Admin Lab 6 - Introduction to Group Policy</span></i><span style="font-weight:400;">.  Print.</span><br />
+
+<span style="font-weight:400;">Krause, Jordan.  (2018.) </span><i><span style="font-weight:400;">Mastering Windows Group Policy</span></i><span style="font-weight:400;">.  Retrieved from https://learning.oreilly.com/library/view/mastering-windows-group/9781789347395/cover.xhtml</span><br /><br />
+
+<b>Handout Questions</b><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“Why is it so important that IT administrators learn Group Policy in an Active Directory environment?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">When Active Directory Domain Services are installed on a Windows network, Group Policy is installed along with it--as they are closely related, knowing how to configure Group Policy (and Active Directory) is essential.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“What are the levels of hierarchy for Group Policy and how do they fit together?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">The levels of hierarchy for Group Policy are, in order from top to bottom, </span><i><span style="font-weight:400;">Domain, Site, Organizational Unit, Nested Organizational Unit</span></i><span style="font-weight:400;">, and so on for however deep the nesting of OUs happens to be.  Settings from linked Group Policy Objects are applied in this order and flow down the hierarchy, altering the settings on workstations accordingly unless overwritten by a later GPO.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“By default, what is affected by the Default Domain Policy GPO?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">Security-related settings, most of which pertain to user passwords, across the entire domain as it is linked to the root of the domain.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“Often you will find policy settings with three choices: Not Configured, Enabled, or Disabled.  Explain why Not Configured and Disabled might not be the same. Give an example.”</span></i><br /></li>
+</ul>
+<i><span style="font-weight:400;">Not Configured</span></i><span style="font-weight:400;"> causes Group Policy to ignore a setting; the user can manually adjust the setting on their own workstation.  </span><i><span style="font-weight:400;">Disabled</span></i><span style="font-weight:400;"> causes Group Policy to actively not apply this setting and override any relevant manual settings on Workstations.  By default, most settings that can be configured with a GPO are </span><i><span style="font-weight:400;">Not Enabled</span></i><span style="font-weight:400;">, meaning the GPO does nothing to alter them.  If I were to </span><i><span style="font-weight:400;">Disable</span></i><span style="font-weight:400;"> one or more of these, the GPO would alter them to disallow enabling relevant settings.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“Explain why creating new GPOs rather than modifying the Default Domain Policy is generally a better idea.”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">Most likely different departments of firms will have different needs.  Creating new GPOs to cater to the needs of these departments is a lot easier than only altering the </span><i><span style="font-weight:400;">Default Domain Policy</span></i><span style="font-weight:400;"> and hoping only it will suffice--which, unless the firm is a small business, it will not.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“Along the same line as the previous question, why is it best to keep minimal settings inside of each GPO and then have many more GPOs as opposed to one GPO that contains all the settings?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">Keeping minimal settings or even one setting per GPO and </span><i><span style="font-weight:400;">naming the objects to reflect the setting(s) that they alter</span></i><span style="font-weight:400;"> makes identifying each individual object much easier, even when there are over a hundred of them in the network.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“Describe the purpose of the commands </span><span style="font-weight:400;">gpupdate</span><span style="font-weight:400;"> and </span><span style="font-weight:400;">gpresult</span><span style="font-weight:400;">.”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">The former is used for implementing updates to the Group Policy, the latter is used for showing the resultant set of policy.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“What might be an example where you would block GPO inheritance?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">Suppose I had a GPO at the root level that prohibited access to the Calculator app. However, I have a few departments (OUs) that need the Calculator in order to do their work, such as an Accounting department.  I could set their OU to block inheritance and therefore they would have access to the Calculator because the policy is stopped from prohibiting access to it.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“How does enforcing GPOs affect GPO precedence?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">Enforced GPOs will bypass any blocks to inheritance and also move to the top of the precedence list.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“Why might you want to disable all User Configuration settings in a GPO?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">Disabling the User Configuration settings in a GPO, or the half of the settings that are not configured, lessens the time Group Policy needs to implement the settings.  In a large network with an abundance of workstations, the amount of time saved with this trick could be massive.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“When testing a new GPO why might you want to filter it to an individual user or computer?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">Testing GPOs is best done on one user or group rather than network-wide where changes could negatively impact the ability of users to do what they need to do.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“Why is it ‘dangerous’ to block a GPO by using the Deny permission in the Delegation tab?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">The Delegation tab is the </span><b><i>only</i></b><span style="font-weight:400;"> place to implement--and even check for--denied permissions.  The Scope tab will still show the groups that should be receiving this policy even if one or more of them have been denied.  Thus, the administrator can forget that (s)he implemented these denials, and even if (s)he does remember, there’s no guarantee that a new administrator would know about this ability.</span><br />
+<ul>
+	<li style="font-weight:400;"><i><span style="font-weight:400;">“What are some examples of using WMI filters for GPO filtering?”</span></i></li><br />
+</ul>
+<span style="font-weight:400;">A WMI filter can be used to implement a GPO at a certain time, on certain workstations based on names or other details.  For instance, a WMI can tell a GPO to run Windows Defender and do a quick scan on all workstations in the office building on Sunday at three-’o-clock in the morning.  Another example: a city library with public computer labs, whose computers have names starting with PUBLIC or similar, can use a WMI to filter to those specifically-named computers and restrict Internet access to certain websites from them--so as to ensure the public doesn’t use them for illegal or reprehensible activities such as pirating copyrighted material.</span><br /><br />
+
+<b>Conclusions</b><br />
+
+<span style="font-weight:400;">In this lab, I learned how to use Group Policy Objects to influence the behavior of user accounts and workstations in a network.  I also learned a few ways to expand or narrow the scope of GPOs, such as enforcing or blocking inheritance and applying filters. The greatest challenge I faced was the possibility of GPOs not being applied and not knowing why they were not applied, at which instance this issue might be in the GPO itself.</span><br />
+
+</body>
+</html>
