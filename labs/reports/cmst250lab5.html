@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lab Report 5 - HTML</title>
+</head>
+<body>
+
+<b>Objectives</b><br />
+
+<span style="font-weight:400;">This laboratory was done in three parts:</span><br />
+
+<span style="font-weight:400;"><em>Objective 1 of 3: Apache web server</em></span><br />
+
+<span style="font-weight:400;">First, each student was to install the Apache HTTP Server package onto his Raspberry Pi computer and edit the default <em>index.html</em> file.</span><br />
+
+<em>Objective 2 of 3: View the other students' websites.</em><br />
+
+Then, each student was to connect to the other Pi-s in the network and view their websites.<br />
+
+<em>Objective 3 of 3: Minecraft Pi Edition</em><br />
+
+Just to take advantage of the local-area-network formed between the computers, the remainder of the lab was spent playing the Pi Edition of Minecraft, which came as part of the downloadable Raspbian operating system.<br /><br />
+
+<b>Equipment List</b><br />
+
+<i><span style="font-weight:400;">Hardware:</span></i><br />
+
+<span style="font-weight:400;">Fully assembled CanaKit Raspberry Pi 3 (loaded with Raspbian)</span><br />
+
+<span style="font-weight:400;">2.5A Power Adapter</span><br />
+
+<span style="font-weight:400;">HDMI cable</span><br />
+
+<span style="font-weight:400;">Laboratory computer with peripherals:</span><br />
+<ul>
+	<li style="font-weight:400;"><span style="font-weight:400;">Monitor</span></li><br />
+	<li style="font-weight:400;"><span style="font-weight:400;">Keyboard</span></li><br />
+	<li style="font-weight:400;"><span style="font-weight:400;">Mouse</span></li><br />
+</ul>
+<span style="font-weight:400;">Linksys router and switch (2-in-1)</span><br />
+
+<span style="font-weight:400;">Straight-through cable (networking cable)</span><br />
+
+<i><span style="font-weight:400;">Software:</span></i><br />
+
+<span style="font-weight:400;">Raspbian (Linux-based operating system)</span><br />
+
+<span style="font-weight:400;">Apache HTTP Server version 2.4, a.k.a. Apache2 (web server hosting application)</span><br />
+
+<span style="font-weight:400;">Chromium (web browser)</span><br />
+
+Minecraft Pi Edition (comes with Raspbian OS)<br /><br />
+
+<b>Notes, Observations, and Questions</b><br />
+
+<em>Objective 1 of 3</em><br />
+
+<span style="font-weight:400;">Having been informed (along with everyone else) that this lab was going to involve the Raspberry Pi computers assembled back in Lab 2 </span><i><span style="font-weight:400;">[Fig. 1] </span></i><span style="font-weight:400;">and recalling that the peripherals were locked into the computer towers, I brought my own keyboard and mouse.  The professor provided HDMI cables for everyone to hook into the monitors.</span><br />
+
+<span style="font-weight:400;">Given that Raspbian is a Linux-based system, certain software packages can be installed from repositories over the Terminal application with just a few commands.  A certain page on the Raspberry Pi website exemplifies this with instructions on how to install Apache2, a free web-server hosting application, onto the unit (See References for the link). Upon installation, the package provides a default </span><b><i>index.html</i></b> <span style="font-weight:400;">file </span><i><span style="font-weight:400;">[Fig. 2] </span></i><span style="font-weight:400;">to be used as the base for the user’s web server.  A command in the Terminal application to change the owner of the HTML file permits the user to edit it for their own purposes.  I tested out the web server’s functionality by typing </span><i><span style="font-weight:400;">http://localhost</span></i><span style="font-weight:400;"> into the URL in Chromium, and the index page loaded, thus proving the web server works.</span><br />
+
+<em>Objective 2 of 3</em><br />
+
+<span style="font-weight:400;">With that done, all that was (initially) left to do was connect to each other’s Raspbian computers to view each others’ edited index HTML files.  Unfortunately, with the heightened restrictive measures in our university’s network, as we discovered in the previous lab, we had to disconnect from the Wifi in the laboratory and connect to a quickly assembled network from a 2-in-1 router and switch and over half a dozen cables. Typing the </span><i><span style="font-weight:400;">http://</span></i><span style="font-weight:400;"> root followed by the IP address of any other Pi in the network took any student to the </span><i><span style="font-weight:400;">index.html</span></i><span style="font-weight:400;"> page of another student, depending on which IP address he had in the network.</span><br />
+
+<em>Objective 3 of 3</em><br />
+
+A lab without a handout or template is bound to go in any direction at any given time, and the finding of Minecraft on the Raspbian system (Pi Edition, specifically designed for these systems back in 2013) is one such off-the-wall example.  With ten-or-fifteen minutes left to waste, I joined my five classmates in a LAN game.  I didn't think to get any screenshots, unfortunately.<br /><br />
+
+<b>Diagrams, flowcharts, and figures</b><br />
+
+<img class="alignnone size-large wp-image-68" src="https://wrelab.files.wordpress.com/2018/10/lab-5-figure-1.jpg?w=1024" alt="Lab 5 Figure 1" width="1024" height="768" /><br />
+
+<i><span style="font-weight:400;">Fig. 1 - Assembled Raspberry Pi 3 in the laboratory.  All peripherals attached, excluding the HDMI cable, were my own.</span></i><br /><br />
+
+<img class="alignnone size-full wp-image-69" src="https://wrelab.files.wordpress.com/2018/10/lab-5-figure-2.jpg" alt="Lab 5 Figure 2" width="960" height="1280" /><br />
+
+<i><span style="font-weight:400;">Fig. 2 - The default index.html web page when one installs Apache2, before owner-changing and editing.</span></i><br /><br />
+
+<b>References</b><br />
+
+<span style="font-weight:400;">The Raspberry Pi Foundation. (n.d.). Setting up an Apache web server on a Raspberry Pi.  In </span><i><span style="font-weight:400;">Raspberry Pi documentation.</span></i><span style="font-weight:400;"> Retrieved from https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md</span><br /><br />
+
+<b>Handout Questions</b><br />
+
+<span style="font-weight:400;">N/A</span><br /><br />
+
+<b>Conclusions</b><br />
+
+<span style="font-weight:400;">In this laboratory, I learned that some file packages can be installed onto a Linux-based system from repositories via the Terminal application.  I also learned how to set up a web server on my Raspberry Pi computer and access and edit the files on that server.</span><br />
+
+</body>
+</html>

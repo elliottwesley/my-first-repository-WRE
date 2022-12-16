@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Web of Colors - Contact Me</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link href="colorsexternal.css" rel="stylesheet">
+<!--[if lt IE 9]>
+   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+  <header>
+    <h1>Web of Colors</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rgb.html">RGB</a></li>
+      <li><a>Analysis</a>
+        <ul>
+          <li><a href="analysis/binary.html">Binary (on/off)</a></li>
+          <li><a href="analysis/ternary.html">Ternary</a></li>
+          <li><a href="analysis/base_four.html">Base&nbsp;4</a></li>
+          <li><a href="analysis/base_five.html">Base&nbsp;5</a></li>
+          <li><a href="analysis/base_six.html">Base&nbsp;6</a></li>
+        </ul>
+      </li>
+      <li id="current">Contact Me</li>
+    </ul>
+  </nav>
+  <main>
+    <h2>Contact Me</h2>
+    <p>Required fiels are marked with an asterisk (*).</p>
+  <form method="post" action="http://webdevbasics.net/scripts/pacific.php">
+    <fieldset>
+      <label for="myName">* Name:
+      <input type="text" name="myName" id="myName" required="required">
+      </label><br><br>
+      <label for="myEmail">* E-mail:
+      <input type="email" name="myEmail" id="myEmail" required="required">
+      </label><br><br>
+      <label for="myColor">Your favorite color:
+      <input type="color" name="myColor" id="myColor">
+      </label><br><br>
+      <label for="myComments">Comments:
+      <textarea name="myComments" id="myComments" rows="4" cols="25"></textarea>
+      </label>
+    </fieldset>
+      <input id="mySubmit" type="submit" value="Submit">
+      <input type="reset" value="Reset">
+      <br>
+  </form>
+  </main>
+  <footer>
+    <br>
+    2018 W. R. Elliott<br>
+    <a href="mailto:aquariuswre@ksu.edu">aquariuswre@ksu.edu</a>
+  </footer>
+</body>
+</html>

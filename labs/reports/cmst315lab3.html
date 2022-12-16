@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lab Report 3 - HTML</title>
+</head>
+<body>
+
+<i><span style="font-weight:400;">Lab partners: Nic C., Matthew D., Caroline T.</span></i><br /><br />
+
+<b>Objectives</b><br />
+
+<span style="font-weight:400;">The goals for the third lab were to clone the virtual server we created in the previous lab, then install and use a program called Active Directory to construct a domain with organizational units and users.  Lastly, we were to add a client VM to the virtual network and access it as our domain's users.</span><br /><br />
+
+<b>Equipment List</b><br />
+
+<i><span style="font-weight:400;">Hardware:</span></i><br />
+
+<span style="font-weight:400;">Laboratory computer with peripherals</span><br />
+
+<i><span style="font-weight:400;">Software:</span></i><br />
+
+<span style="font-weight:400;">Hyper-V Manager 2016</span><br />
+
+<span style="font-weight:400;">Windows Server 2016 (operating system on a VM)</span><br />
+
+<span style="font-weight:400;">Sysprep (Windows application/tool)</span><br />
+
+<span style="font-weight:400;">Windows 10 (operating system image, as a client)</span><br />
+
+<i><span style="font-weight:400;">The professor also provided names to use for computers and accounts, IP addresses, product keys, and passwords.</span></i><br /><br />
+
+<b>Notes, Observations, and Questions</b><br />
+
+<i><span style="font-weight:400;">Day 1 - Cloning a Virtual Machine</span></i><br />
+
+<span style="font-weight:400;">According to an article by world-renowned information technology professional Daniel Petri, the primary obstacle in machine cloning is the fact that every single Windows computer or server is assigned a security identifier, or SID, as part of the installation process.  Each individual Windows computer or server has, or should have, its own unique SID. For those who wish to clone an image of a Windows OS to another machine, Microsoft developed a System Preparation tool, shorthand name “Sysprep” <em>(Fig. 1)</em>. It’s purpose is to remove information such as SIDs and other unique identifying information that could cause issues in a network if multiple computers with the same information are present, thus making an OS suitable for cloning to virtual machines (Petri, 2016).  Petri’s article explains how to run and use Sysprep to prepare an OS for duplication. See </span><i><span style="font-weight:400;">References</span></i><span style="font-weight:400;"> for a link to his article.</span><br />
+
+<span style="font-weight:400;">While our virtual server was shutdown after preparation, we used Hyper-V Manager to clone our virtual server.  To clone a virtual machine in Hyper-V, select the prepared machine to duplicate and choose Export. Once done, import the exported VM; select the folder encompassing the entire machine.  You will have to change the name of the original machine so as to not cause an error from creating a duplicate with the exact same name. Choose </span><i><span style="font-weight:400;">Copy</span></i><span style="font-weight:400;"> as the import type.</span><br />
+
+<i><span style="font-weight:400;">Day 2 - Installing Active Directory (AD)</span></i><br />
+
+<span style="font-weight:400;">As we were going to use the clone as the actual server, we assigned a static IP address to it.  For convenience, we also renamed the machine (WINSERVER1B) to something a little easier to remember than a complex string of characters and numbers.  Both of these alterations are done through the Control Panel; the option to change the computer’s name can be found under </span><i><span style="font-weight:400;">System</span></i><span style="font-weight:400;"> and then </span><i><span style="font-weight:400;">About</span></i><span style="font-weight:400;">, while the option to assign a static IP address is under </span><i><span style="font-weight:400;">Network</span></i><span style="font-weight:400;">, then </span><i><span style="font-weight:400;">Network Connections</span></i><span style="font-weight:400;">, </span><i><span style="font-weight:400;">Ethernet</span></i><span style="font-weight:400;">, </span><i><span style="font-weight:400;">Ethernet status</span></i><span style="font-weight:400;">, </span><i><span style="font-weight:400;">Ethernet Properties</span></i><span style="font-weight:400;">, and </span><i><span style="font-weight:400;">Internet Protocol Version 4</span></i><span style="font-weight:400;">, in that order <em>(Fig. 2)</em>.  Doing the latter causes the virtual machine to lose connection to whatever network it was connected to.  A simple reboot allows the changes to take effect.</span><br />
+
+<span style="font-weight:400;">Whenever a machine running Windows Server is booted, an application called “Server Manager” automatically opens upon reaching the desktop.  On it is an option labeled </span><i><span style="font-weight:400;">Add roles and features</span></i><span style="font-weight:400;"> where an administrator can install anything necessary for a network.  For our purposes we were to install Active Directory Domain Services. To get it, under </span><i><span style="font-weight:400;">Installation Type</span></i><span style="font-weight:400;"> choose </span><i><span style="font-weight:400;">role based or feature based installation</span></i><span style="font-weight:400;">, and select the destination server to install to.  Under </span><i><span style="font-weight:400;">Server Roles</span></i><span style="font-weight:400;">, select </span><i><span style="font-weight:400;">Active Directory Domain Services</span></i><span style="font-weight:400;"> and then proceed through the installation wizard.</span><br />
+
+<span style="font-weight:400;">Once installed, the administrator has the option to promote the server to a domain controller.  Accepting this summons a prompt to create a new forest, a sort of root domain, specify a name for it [such as Domain1.local], specify its functionality level and its domain controlling ability, and assign a DSRM [Directory Services Restore Mode] password.  Take note of the location of the AD DS [Active Directory Domain Service] database locations before finalizing its creation. The server will require a reboot once installation is complete, and the new features will require a moment or so to be applied.</span><br />
+
+<span style="font-weight:400;">The created domain and a Saved Queries folder can be found in the </span><i><span style="font-weight:400;">Active Directory Users and Computers</span></i><span style="font-weight:400;"> under </span><i><span style="font-weight:400;">Tools</span></i><span style="font-weight:400;"> in </span><i><span style="font-weight:400;">Server Manager </span></i><em><span style="font-weight:400;">(Fig. 3)</span></em><span style="font-weight:400;">.  If these are present, the settings were implemented.</span><br />
+
+<i><span style="font-weight:400;">Day 3 - Adding organizational units</span></i><br />
+
+<span style="font-weight:400;">A network administrator’s responsibilities are centered around domains rather than the forests and trees which encompass them.  Within a domain, NA’s define organizational units (OU), users, computers, and additional servers for the network. Today’s objective was to build a structure of OUs and users.  We were then to add a client computer to the Hyper-V virtual environment.</span><br />
+
+<span style="font-weight:400;">To add an organizational unit, the administrator must go to </span><i><span style="font-weight:400;">Users</span></i><span style="font-weight:400;"> under </span><i><span style="font-weight:400;">Active Directory Users and Computers</span></i><span style="font-weight:400;"> [this is all in the </span><i><span style="font-weight:400;">Server Manager</span></i><span style="font-weight:400;">], click the </span><i><span style="font-weight:400;">Action</span></i><span style="font-weight:400;"> button, then </span><i><span style="font-weight:400;">New</span></i><span style="font-weight:400;">, and then </span><i><span style="font-weight:400;">Organizational Unit.</span></i><span style="font-weight:400;">  A prompt will appear asking for a name for this unit.  Users are added in similar fashion; click </span><i><span style="font-weight:400;">Action</span></i><span style="font-weight:400;">, then </span><i><span style="font-weight:400;">New,</span></i><span style="font-weight:400;"> and then </span><i><span style="font-weight:400;">User</span></i><span style="font-weight:400;">.  The administrator will have to input a name for the new user, a logon name, a secure password, and the domain where the user will be.</span><br />
+
+<span style="font-weight:400;">In Hyper-V Manager, we created a virtual machine to act as the client.  We assigned similar settings to this computer as the virtual server machines.  When we attempted to install an OS image of Windows 10, we were presented with a dialogue box stating that a media driver was missing.  Ignoring this only led to another dialogue box asking for a disk driver to be inserted. A virtual machine doesn’t have any such hardware, so we concluded that we were given a bad or corrupted image.</span><br />
+
+<i><span style="font-weight:400;">Day 4 - Loading the Win10 image, take two</span></i><br />
+
+<span style="font-weight:400;">Between classes, the professor used our VM client to test for a functional image to use in the lab.  The image found was functional, so all we had to do was finish the typical install process for any proprietary OS.</span><br />
+
+<span style="font-weight:400;">Once loaded, we had to change some settings to link our client with our newly constructed domain.  To do this, we had to change its primary DNS IP address to match that of the server, and then change the domain from the default workgroup setting to that of the domain we created earlier [Domain1.local].  The computer will in the case of domain changes ask for the administrator account and password to be granted access to the domain, and require a reboot once accepted. In order to have the ability to remotely access the client, an option in the computer’s settings [search “remote desktop” in </span><i><span style="font-weight:400;">Control Panel</span></i><span style="font-weight:400;">] needs to be enabled.</span><br />
+
+<span style="font-weight:400;">Our end goal was to have the users we created in Active Directory be able to log into this client.  In the </span><i><span style="font-weight:400;">Control Panel</span></i><span style="font-weight:400;">, under the </span><i><span style="font-weight:400;">System and Security</span></i><span style="font-weight:400;"> settings is the </span><i><span style="font-weight:400;">System</span></i><span style="font-weight:400;"> subcategory.  Under “Computer name, domain, and workgroup settings” is an option to </span><i><span style="font-weight:400;">“Change settings”</span></i><span style="font-weight:400;">, which brings up a settings box with multiple tabs.  One of these tabs is labelled “Remote”, which is where a network administrator can grant users in a network access to this computer.  This is done by clicking </span><i><span style="font-weight:400;">Select Users</span></i><span style="font-weight:400;">, then </span><i><span style="font-weight:400;">Add</span></i><span style="font-weight:400;"> in the settings box that appears, then typing “domainusers” [all one word] and checking.  The last step is to finalize the domain’s access to the client, and now any of those user accounts in the domain can log into the machine with their login information.</span><br /><br />
+
+<b>Diagrams, flowcharts, and figures</b><br />
+
+<img class="alignnone size-full wp-image-130" src="https://wrelab.files.wordpress.com/2019/03/lab-03-figure-01.jpg" alt="Lab 03 Figure 01" width="640" height="480" /><br />
+
+<em>Fig. 1.  Using Sysprep.</em><br /><br />
+
+<img class="alignnone size-full wp-image-131" src="https://wrelab.files.wordpress.com/2019/03/lab-03-figure-02.png" alt="Lab 03 Figure 02" width="1005" height="482" /><br />
+
+<em>Fig. 2.  Ethernet Status and Properties.  Virtual networks, despite not making use of physical architecture, can be programmed as Ethernet.</em><br /><br />
+
+<img class="alignnone size-full wp-image-132" src="https://wrelab.files.wordpress.com/2019/03/lab-03-figure-03.png" alt="Lab 03 Figure 03" width="754" height="530" /><br />
+
+<em>Fig. 3.  The presence of a Saved Queries folder and a domain of the name that was specified in the Setup shows that the virtual server was promoted to a domain controller.</em><br /><br />
+
+<b>References</b><br />
+
+<span style="font-weight:400;">Petri, Daniel. (2016, March 29). Using Sysprep in Windows 10 [blog post].  Retrieved from </span><a href="https://www.petri.com/using-syspre-windows-10"><span style="font-weight:400;">https://www.petri.com/using-syspre-windows-10</span></a><br /><br />
+
+<b>Handout Questions</b><br />
+<ol>
+	<li><span style="font-weight:400;"> The reason for changing the preferred DNS Server on the client computer is to ensure that it receives an address within our virtual network.</span></li><br />
+	<li><span style="font-weight:400;"> The extra step for enabling domain users to log in on the client was to enable remote-desktop connections from the settings on the client computer.  The Remote Desktop Connection application allows any users on a machine to log onto it from another computer if the user knows the name or IP address of the computer.  </span></li><br />
+	<li><span style="font-weight:400;"> Active Directory provides a cost-effective means to organize users and OUs on a virtual servers easily that hardware and architecture could only replicate with a multitude of servers, which give off a lot of heat and increase cooling expenses.</span></li><br />
+	<li><span style="font-weight:400;"> Companies use virtual servers to save money that would have been used on hardware and thus electricity consumption and cooling/climate control, and to test operating systems and software.  Virtual servers also are easier to secure than a multitude of hardware-based machines and are easier to clone or mirror.</span></li><br /><br />
+</ol>
+<b>Conclusions</b><br />
+
+<span style="font-weight:400;">We learned how corporations use Active Directory to meet networking needs for multiple departments and allow for an abundance of users when hardware might be limited.</span><br />
+
+</body>
+</html>

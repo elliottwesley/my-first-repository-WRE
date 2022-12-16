@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="external.css">
+  <title>Wesley Elliott - My Portfolio</title>
+</head>
+<body>
+  <h1>Wesley Elliott - My Portfolio</h1>
+  <em><p id="headcapt">--------------------</p></em>
+  <hr />
+  <div id="links">
+    <a class="blockanchor" href="labs/desc.html"><h2>Laboratory</h2></a>
+    <a class="blockanchor" href="color/desc.html"><h2>Web of Colors</h2></a>
+    <a class="blockanchor" href="javascript/desc.html"><h2>My JS Projects</h2></a>
+    <a class="blockanchor" href="rebranding/desc.html"><h2>Rebrand + Web Ads</h2></a>
+    <a class="blockanchor" href="twist/desc.html"><h2>TWIST Web Collab</h2></a>
+    <a class="blockanchor" href="speech/desc.html"><h2>Speech Web Collab</h2></a>
+    <a class="blockanchor" href="whitepaper/desc.html"><h2>Wicked Problem</h2></a>
+    <a class="blockanchor" href="portfolio_design/desc.html"><h2>Portfolio Design</h2></a>
+  </div>
+  <footer>
+    <hr />
+  2018-2022 W. R. Elliott - <a href="aboutme.html">About Me</a> - aquariuswre@ksu.edu
+  </footer>
+    
+  <!-- The script that randomly chooses out of a bank of quotes. -->
+  <script>
+    var headcapt = document.getElementById("headcapt");
+    var quotes = ["This is a random quote generator",
+      "If you must interact, plan it in advance",
+      "I don't give hugs",
+      "The closest thing we have to magic in the real world is programming",
+      "Mages and wizards walk among us",
+      "If you've spent the whole day lying down, it may be time for an all-nighter",
+      "Never pay money for something you can make yourself",
+      "Anything that can go wrong, will",
+      "Insanity is doing the same thing and expecting a different outcome",
+      "You are never too old for LEGO",
+      "If it weren't for the last minute, nothing would get done",
+      "Correlation does not imply causation",
+      "Refresh the page to see another quote",
+      "Ping-pong is the one thing sports and programming have in common",
+      "u n d e f i n e d",
+      "Feel free to take these quotes with a grain of salt",
+      "What if Programmer were an RPG class?",
+      "I <3 HTML",
+      "I <3 CSS",
+      "I <3 Javascript",
+      "I <3 Python",
+      "Windows and Linux user, solitaire nerd, introvert extraordinaire",
+      "Super user do",
+      "Cursive handwriting is a lost art",
+      "This statement is false",
+      "C'est la vie",
+      "Help!  I'm trapped in a random quote factory!",
+      "Aleph-Null",
+      "It's not loneliness if you enjoy it",
+      "You Lost The Game",
+      "Nothing dates like the future",
+      "The world's strongest materials mean nothing when the foundation is soft as salt",
+      "I envy people who can pop their own backs",
+      "If you expect perfection, expect to be disappointed",
+      "No one ever plans for crazy",
+      "Dentist appointment at 2:30",
+      "404 Message Not Found",
+      "I reject your reality and substitute my own",
+      "You can't fix what isn't broken",
+      "I'm not a dumb terminal!",
+      "Forever a work-in-progress",
+      "Friendship ended with DriveToWeb; now GitHub Pages is my best friend"];
+      // there are 42 quotes total
+    var rng = Math.floor(Math.random() * 42); // * number of quotes
+    headcapt.innerHTML = quotes[rng];
+  </script>
+</body>
+</html>
